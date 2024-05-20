@@ -1,0 +1,10 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<objects>
+  <object Name="Cruxius_BoomBox_Boom Box" Inherits="BaseMissileWeapon">
+    <tag Name="BaseObject" Value="*noinherit" />
+    <part Name="Render" DisplayName="{{G|boom box}}" Tile="Items/sw_book_1.bmp" ColorString="&amp;G" DetailColor="Y" />
+    <part Name="Description" Short="Defeat your enemies with the power of music." />
+    <part Name="Physics" Weight="1" UsesTwoSlots="true" />
+    <part Name="Commerce" Value="42" />
+  </object>
+</objects>
