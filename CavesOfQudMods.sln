@@ -5,6 +5,8 @@ VisualStudioVersion = 17.9.34902.65
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BoomBox", "BoomBox\BoomBox.csproj", "{B6A3023C-3771-4534-AEBC-6BA37288F768}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SpotifyPlayer", "SpotifyPlayer\SpotifyPlayer.csproj", "{FB77BB3D-6CAF-47D2-A32D-6D919783E3BD}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{B6A3023C-3771-4534-AEBC-6BA37288F768}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B6A3023C-3771-4534-AEBC-6BA37288F768}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B6A3023C-3771-4534-AEBC-6BA37288F768}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FB77BB3D-6CAF-47D2-A32D-6D919783E3BD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FB77BB3D-6CAF-47D2-A32D-6D919783E3BD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FB77BB3D-6CAF-47D2-A32D-6D919783E3BD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FB77BB3D-6CAF-47D2-A32D-6D919783E3BD}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

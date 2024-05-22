@@ -18,5 +18,11 @@ namespace BoomBox.Scripts
         {
             The.Player.Inventory.AddObjectToInventory(GameObject.Create("Cruxius_BoomBox_Boom Box"));
         }
+
+        [WishCommand(Command = "playgolgotha")]
+        public static void PlayGolgotha()
+        {
+            SoundManager.PlayMusic("Golgotha (Graveyard)");
+        }
     }
 }
