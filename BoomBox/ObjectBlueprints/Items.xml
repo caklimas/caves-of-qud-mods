@@ -1,10 +1,12 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <objects>
-  <object Name="Cruxius_BoomBox_Boom Box" Inherits="BaseMissileWeapon">
+  <object Name="Cruxius_BoomBox_Boom Box" Inherits="Item">
     <tag Name="BaseObject" Value="*noinherit" />
     <part Name="Render" DisplayName="{{G|boom box}}" Tile="Cruxius_BoomBox/boom_box.png" ColorString="&amp;G" DetailColor="Y" />
-    <part Name="Description" Short="Defeat your enemies with the power of music." />
-    <part Name="Physics" Weight="1" UsesTwoSlots="true" />
+    <part Name="Description" Short="Play any kind of music with the power of Spotify." />
+    <part Name="Physics" Category="Tools" Weight="1" />
     <part Name="Commerce" Value="42" />
+
+    <part Name="Cruxius_BoomBox_MusicPlayer" />
   </object>
 </objects>
