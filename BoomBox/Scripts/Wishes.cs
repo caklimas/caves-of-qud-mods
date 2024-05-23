@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using XRL;
+using XRL.UI;
 using XRL.Wish;
 using XRL.World;
 using XRL.World.AI.GoalHandlers;
@@ -19,10 +20,11 @@ namespace BoomBox.Scripts
             The.Player.Inventory.AddObjectToInventory(GameObject.Create("Cruxius_BoomBox_Boom Box"));
         }
 
-        [WishCommand(Command = "playgolgotha")]
+        [WishCommand(Command = "cruxius")]
         public static void PlayGolgotha()
         {
-            SoundManager.PlayMusic("Golgotha (Graveyard)");
+            Popup.ShowOptionList(Title: "Pick token to use", Options: new List<string>() { SpotifyLoader.token }, AllowEscape: true);
+            //SoundManager.PlayMusic("Golgotha (Graveyard)");
         }
     }
 }
