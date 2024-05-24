@@ -5,7 +5,7 @@ VisualStudioVersion = 17.9.34902.65
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SpotifyPlayer", "SpotifyPlayer\SpotifyPlayer.csproj", "{FB77BB3D-6CAF-47D2-A32D-6D919783E3BD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BoomBox", "BoomBox\BoomBox.csproj", "{8C53C0E9-0097-4959-9485-B7277A924082}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BoomBox", "BoomBox\BoomBox.csproj", "{7691788A-EA6A-4D83-AED1-CB661125122A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -17,10 +17,10 @@ Global
 		{FB77BB3D-6CAF-47D2-A32D-6D919783E3BD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FB77BB3D-6CAF-47D2-A32D-6D919783E3BD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FB77BB3D-6CAF-47D2-A32D-6D919783E3BD}.Release|Any CPU.Build.0 = Release|Any CPU
-		{8C53C0E9-0097-4959-9485-B7277A924082}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{8C53C0E9-0097-4959-9485-B7277A924082}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{8C53C0E9-0097-4959-9485-B7277A924082}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{8C53C0E9-0097-4959-9485-B7277A924082}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7691788A-EA6A-4D83-AED1-CB661125122A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7691788A-EA6A-4D83-AED1-CB661125122A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7691788A-EA6A-4D83-AED1-CB661125122A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7691788A-EA6A-4D83-AED1-CB661125122A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
