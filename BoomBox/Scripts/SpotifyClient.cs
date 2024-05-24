@@ -51,7 +51,7 @@ namespace BoomBox.Scripts
             {
                 Console.WriteLine("Resuming spotify player");
 
-                var request = getRequest($"{BASE_URL}/me/player/play", "PUT");
+                var request = getRequest($"{BASE_URL}me/player/play", "PUT");
                 request.ContentLength = 0;
 
                 // Get the response
