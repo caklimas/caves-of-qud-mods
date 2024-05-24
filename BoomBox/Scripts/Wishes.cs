@@ -23,8 +23,7 @@ namespace BoomBox.Scripts
         [WishCommand(Command = "cruxius")]
         public static void ShowSpotifyData()
         {
-            var user = SpotifyClient.GetCurrentUser(SpotifyLoader.token);
-            Popup.ShowOptionList(Title: "Data", Options: new List<string>() { SpotifyLoader.token, user }, AllowEscape: true);
+            SpotifyClient.PausePlayback(SpotifyLoader.token);
             //SoundManager.PlayMusic("Golgotha (Graveyard)");
         }
     }

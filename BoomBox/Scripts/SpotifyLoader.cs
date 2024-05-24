@@ -12,12 +12,12 @@ namespace BoomBox.Scripts
     [HasModSensitiveStaticCache]
     public static class SpotifyLoader
     {
-        public static readonly string REDIRECT_URI = "http://localhost:3000/callback";
-        public static readonly string CLIENT_ID = "66fddae670eb48ab8661982cd1ee6b89";
-        public static readonly string CLIENT_SECRET = "1d82a46d62f94d4999475c5381d179c6";
+        public const string REDIRECT_URI = "http://localhost:3000/callback";
+        public const string CLIENT_ID = "66fddae670eb48ab8661982cd1ee6b89";
+        public const string CLIENT_SECRET = "1d82a46d62f94d4999475c5381d179c6";
 
         [ModSensitiveStaticCache]
-        public static String token;
+        public static string token;
 
         [ModSensitiveCacheInit]
         public static void InitToken()
