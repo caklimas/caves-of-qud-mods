@@ -45,6 +45,43 @@ namespace BoomBox.Scripts
             }
         }
 
+        public static void ResumePlayback()
+        {
+            try
+            {
+                Console.WriteLine("Resuming spotify player");
+
+                var request = getRequest($"{BASE_URL}/me/player/play", "PUT");
+                request.ContentLength = 0;
+
+                // Get the response
+                using (HttpWebResponse response = (HttpWebResponse)request.GetResponse())
+                {
+                    // Check the response status code
+                    if (response.StatusCode == HttpStatusCode.OK)
+                    {
+                        // Read the response stream
+                        using (Stream responseStream = response.GetResponseStream())
+                        {
+                            StreamReader reader = new StreamReader(responseStream, Encoding.UTF8);
+                            var responseBody = reader.ReadToEnd();
+
+                            Console.WriteLine("Playback resumed successfully.");
+                            Console.WriteLine($"{responseBody}");
+                        }
+                    }
+                    else
+                    {
+                        Console.WriteLine($"Error: {response.StatusCode}");
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Exception: {ex.Message}");
+            }
+        }
+
         private static HttpWebRequest getRequest(string url, string method)
         {
             Console.WriteLine($"Creating request for {url}");

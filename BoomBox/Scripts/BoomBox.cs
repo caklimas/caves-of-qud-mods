@@ -1,15 +1,10 @@
 ﻿using BoomBox.Scripts;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using XRL.World;
 
 namespace XRL.World.Parts
 {
     [Serializable]
-    public class BoomBox : IPart
+    public class Cruxius_BoomBox : IPart
     {
         public override void Register(GameObject Object)
         {
@@ -21,6 +16,7 @@ namespace XRL.World.Parts
         {
             Console.WriteLine("Handle GetInventoryActionsEvent");
             E.AddAction(Name: "Pause", Key: 'p', Display: "{{W|p}}ause", Command: "Pause", WorksTelekinetically: true);
+            E.AddAction(Name: "Start", Key: 's', Display: "{{W|s}}tart", Command: "Start", WorksTelekinetically: true);
 
             return true;
         }
@@ -31,6 +27,9 @@ namespace XRL.World.Parts
             {
                 case "Pause":
                     SpotifyClient.PausePlayback();
+                    return true;
+                case "Start":
+                    SpotifyClient.ResumePlayback();
                     return true;
                 default:
                     return false;

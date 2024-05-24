@@ -22,7 +22,10 @@ namespace BoomBox.Scripts
         [ModSensitiveCacheInit]
         public static void InitToken()
         {
-            token = getToken();
+            if (string.IsNullOrEmpty(token))
+            {
+                token = getToken();
+            }
         }
 
         public static string getToken()

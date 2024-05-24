@@ -5,5 +5,6 @@
     <part Name="Description" Short="Play any kind of music with the power of Spotify." />
     <part Name="Physics" Category="Tools" Weight="1" />
     <part Name="Commerce" Value="42" />
+    <part Name="Cruxius_BoomBox" />
   </object>
 </objects>
