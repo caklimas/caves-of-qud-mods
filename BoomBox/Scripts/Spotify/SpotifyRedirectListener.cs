@@ -5,7 +5,7 @@ using System.IO;
 using System.Net;
 using System.Text;
 
-namespace BoomBox.Scripts
+namespace BoomBox.Scripts.Spotify
 {
     internal static class SpotifyRedirectListener
     {

@@ -1,13 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using BoomBox.Scripts.Spotify;
 using XRL;
 using XRL.UI;
 using XRL.Wish;
 using XRL.World;
-using XRL.World.AI.GoalHandlers;
 
 namespace BoomBox.Scripts
 {
@@ -23,7 +18,14 @@ namespace BoomBox.Scripts
         [WishCommand(Command = "cruxius")]
         public static void ShowSpotifyData()
         {
-            
+            if (SelectedSpotifyDevice.SelectedDevice != null)
+            {
+                Popup.Show($"Currently selected device {SelectedSpotifyDevice.SelectedDevice.name}");
+            }
+            else
+            {
+                Popup.Show("No selected device");
+            }
         }
     }
 }

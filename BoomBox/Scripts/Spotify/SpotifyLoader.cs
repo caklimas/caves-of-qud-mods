@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using System.Web;
 using XRL;
 
-namespace BoomBox.Scripts
+namespace BoomBox.Scripts.Spotify
 {
     [HasModSensitiveStaticCache]
     public static class SpotifyLoader
