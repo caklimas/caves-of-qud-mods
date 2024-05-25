@@ -1,4 +1,5 @@
-﻿using System;
+﻿using LitJson;
+using System;
 using System.IO;
 using System.Net;
 using System.Text;
@@ -50,7 +51,7 @@ namespace BoomBox.Scripts
             try
             {
                 Console.WriteLine("Resuming spotify player");
-
+                
                 var request = getRequest($"{BASE_URL}me/player/play", "PUT");
                 request.ContentLength = 0;
 
@@ -79,6 +80,50 @@ namespace BoomBox.Scripts
             catch (Exception ex)
             {
                 Console.WriteLine($"Exception: {ex.Message}");
+            }
+        }
+
+        public static PlaybackStateResponse GetPlaybackState()
+        {
+            try
+            {
+                Console.WriteLine("Getting playback state");
+                
+                var request = getRequest($"{BASE_URL}me/player", "GET");
+                request.ContentLength = 0;
+
+                // Get the response
+                using (HttpWebResponse response = (HttpWebResponse)request.GetResponse())
+                {
+                    // Check the response status code
+                    if (response.StatusCode == HttpStatusCode.OK)
+                    {
+                        // Read the response stream
+                        using (Stream responseStream = response.GetResponseStream())
+                        {
+                            StreamReader reader = new StreamReader(responseStream, Encoding.UTF8);
+                            var responseBody = reader.ReadToEnd();
+                            Console.WriteLine($"Playback state: {responseBody}");
+
+                            var responsePlayback = JsonMapper.ToObject<PlaybackStateResponse>(responseBody);
+                            return responsePlayback;
+                        }
+                    }
+                    else if (response.StatusCode == HttpStatusCode.NoContent)
+                    {
+                        return null;
+                    }
+                    else
+                    { 
+                        Console.WriteLine($"Error: {response.StatusCode}");
+                        return null;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Exception: {ex.Message}");
+                return null;
             }
         }
 

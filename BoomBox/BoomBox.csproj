@@ -49,6 +49,7 @@
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Scripts\BoomBox.cs" />
+    <Compile Include="Scripts\PlaybackStateResponse.cs" />
     <Compile Include="Scripts\SpotifyClient.cs" />
     <Compile Include="Scripts\SpotifyLoader.cs" />
     <Compile Include="Scripts\SpotifyRedirectListener.cs" />

@@ -6,18 +6,21 @@ namespace XRL.World.Parts
     [Serializable]
     public class Cruxius_BoomBox : IPart
     {
-        public override void Register(GameObject Object)
-        {
-            Object.RegisterPartEvent(this, "EncumbranceChanged");
-			base.Register(Object);
-        }
-
         public override bool HandleEvent(GetInventoryActionsEvent E)
         {
             Console.WriteLine("Handle GetInventoryActionsEvent");
-            E.AddAction(Name: "Pause", Key: 'p', Display: "{{W|p}}ause", Command: "Pause", WorksTelekinetically: true);
-            E.AddAction(Name: "Start", Key: 's', Display: "{{W|s}}tart", Command: "Start", WorksTelekinetically: true);
 
+            var playbackState = SpotifyClient.GetPlaybackState();
+
+            if (playbackState != null && playbackState.is_playing)
+            {
+                E.AddAction(Name: "Pause", Key: 'p', Display: "{{W|p}}ause", Command: "Pause", WorksTelekinetically: true);
+            }
+            else
+            {
+                E.AddAction(Name: "Start", Key: 's', Display: "{{W|s}}tart", Command: "Start", WorksTelekinetically: true);
+            }
+            
             return true;
         }
 

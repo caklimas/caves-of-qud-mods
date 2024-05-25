@@ -1,12 +1,9 @@
 ﻿
-using SimpleJSON;
+using LitJson;
 using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Net;
 using System.Text;
-using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 
 namespace BoomBox.Scripts
 {
@@ -60,20 +57,11 @@ namespace BoomBox.Scripts
                 {
                     using (StreamReader reader = new StreamReader(response.GetResponseStream()))
                     {
-                        var pattern = "\"access_token\":\"([^\"]+)\"";
                         var responseText = reader.ReadToEnd();
-                        var match = Regex.Match(responseText, pattern);
+                        var accessTokenResponse = JsonMapper.ToObject<AccessTokenResponse>(responseText);
 
-                        if (match.Success)
-                        {
-                            var accessToken = match.Groups[1].Value;
-                            Console.WriteLine($"Access Token: {accessToken}");
-                            return accessToken;
-                        }
-                        else
-                        {
-                            throw new Exception("Access token not found.");
-                        }
+                        Console.WriteLine($"Found Spotify access token ${accessTokenResponse.access_token}");
+                        return accessTokenResponse.access_token;
                     }
                 }
                 else
@@ -82,5 +70,10 @@ namespace BoomBox.Scripts
                 }
             }
         }
+    }
+
+    class AccessTokenResponse
+    {
+        public string access_token { get; set; }
     }
 }
