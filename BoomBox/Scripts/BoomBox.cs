@@ -38,10 +38,10 @@ namespace XRL.World.Parts
             switch (E.Command)
             {
                 case "Pause":
-                    SpotifyClient.PausePlayback(SelectedSpotifyDevice.SelectedDevice?.id);
+                    SpotifyClient.PausePlayback(null);
                     return true;
                 case "Start":
-                    SpotifyClient.ResumePlayback(SelectedSpotifyDevice.SelectedDevice?.id);
+                    SpotifyClient.ResumePlayback(null);
                     return true;
                 case "Select Device":
                     var availableDevices = SpotifyClient.GetAvailableDevices();
@@ -57,6 +57,7 @@ namespace XRL.World.Parts
                         {
                             SelectedSpotifyDevice.SelectedDevice = availableDevices.devices[index];
                             Console.WriteLine($"Selected device {SelectedSpotifyDevice.SelectedDevice.id}");
+                            SpotifyClient.TransferPlayback(SelectedSpotifyDevice.SelectedDevice.id);
                         }
                         else
                         {

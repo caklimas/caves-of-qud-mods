@@ -195,6 +195,48 @@ namespace BoomBox.Scripts.Spotify
             }
         }
 
+        public static void TransferPlayback(string deviceId)
+        {
+            try
+            {
+                Console.WriteLine($"Transferring device to id {deviceId}");
+                var request = getRequest($"{BASE_URL}me/player", "PUT");
+                request.ContentType = "application/json";
+
+                using (var streamWriter = new StreamWriter(request.GetRequestStream()))
+                {
+                    var json = JsonMapper.ToJson(new TransferDevice() { device_ids = new[] { deviceId } });
+                    streamWriter.Write(json);
+                }
+
+                // Get the response
+                using (HttpWebResponse response = (HttpWebResponse)request.GetResponse())
+                {
+                    // Check the response status code
+                    if (response.StatusCode == HttpStatusCode.OK)
+                    {
+                        // Read the response stream
+                        using (Stream responseStream = response.GetResponseStream())
+                        {
+                            StreamReader reader = new StreamReader(responseStream, Encoding.UTF8);
+                            var responseBody = reader.ReadToEnd();
+
+                            Console.WriteLine("Transfer Playback successful.");
+                            Console.WriteLine($"{responseBody}");
+                        }
+                    }
+                    else
+                    {
+                        Console.WriteLine($"Transfer Playback Error: {response.StatusCode}");
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Transfer Playback Exception: {ex.Message}");
+            }
+        }
+
         private static HttpWebRequest getRequest(string url, string method)
         {
             Console.WriteLine($"Creating request for {url}");
