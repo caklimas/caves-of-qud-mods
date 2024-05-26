@@ -10,6 +10,8 @@ namespace XRL.World.Parts
     {
         public override bool HandleEvent(GetInventoryActionsEvent E)
         {
+            E.Actions.Clear();
+
             Console.WriteLine("Handle GetInventoryActionsEvent");
 
             var playbackState = SpotifyClient.GetPlaybackState();
@@ -29,7 +31,7 @@ namespace XRL.World.Parts
                 Display: "select device",
                 Command: "Select Device",
                 WorksTelepathically: true);
-            
+
             return true;
         }
 
@@ -38,10 +40,10 @@ namespace XRL.World.Parts
             switch (E.Command)
             {
                 case "Pause":
-                    SpotifyClient.PausePlayback(null);
+                    SpotifyClient.PausePlayback();
                     return true;
                 case "Start":
-                    SpotifyClient.ResumePlayback(null);
+                    SpotifyClient.ResumePlayback();
                     return true;
                 case "Select Device":
                     var availableDevices = SpotifyClient.GetAvailableDevices();
@@ -56,13 +58,7 @@ namespace XRL.World.Parts
                         if (index != -1)
                         {
                             SelectedSpotifyDevice.SelectedDevice = availableDevices.devices[index];
-                            Console.WriteLine($"Selected device {SelectedSpotifyDevice.SelectedDevice.id}");
                             SpotifyClient.TransferPlayback(SelectedSpotifyDevice.SelectedDevice.id);
-                        }
-                        else
-                        {
-                            SelectedSpotifyDevice.SelectedDevice = null;
-                            Console.WriteLine("Unselect device");
                         }
                     }
                     else

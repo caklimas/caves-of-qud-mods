@@ -12,23 +12,13 @@ namespace BoomBox.Scripts.Spotify
     {
         private const string BASE_URL = "https://api.spotify.com/v1/";
 
-        public static void PausePlayback(String deviceId) {
+        public static void PausePlayback() {
             try
             {
                 Console.WriteLine("Pausing spotify player");
                 var baseUri = $"{BASE_URL}me/player/pause";
 
                 var builder = new UriBuilder(baseUri);
-
-                if (deviceId != null)
-                {
-                    Console.WriteLine("Device not null");
-                    var query = HttpUtility.ParseQueryString(string.Empty);
-                    query["device_id"] = deviceId;
-                    builder.Query = query.ToString();
-                }
-
-                Console.WriteLine($"Resume url: {builder.ToString()}");
 
                 var request = getRequest(builder.ToString(), "PUT");
                 request.ContentLength = 0;
@@ -61,7 +51,7 @@ namespace BoomBox.Scripts.Spotify
             }
         }
 
-        public static void ResumePlayback(string deviceId)
+        public static void ResumePlayback()
         {
             try
             {
@@ -70,14 +60,6 @@ namespace BoomBox.Scripts.Spotify
                 
                 var builder = new UriBuilder(baseUri);
 
-                if (deviceId != null)
-                {
-                    var query = HttpUtility.ParseQueryString(string.Empty);
-                    query["device_id"] = deviceId;
-                    builder.Query = query.ToString();
-                }
-
-                Console.WriteLine($"Resume url: {builder.ToString()}");
                 var request = getRequest(builder.ToString(), "PUT");
                 request.ContentLength = 0;
 
