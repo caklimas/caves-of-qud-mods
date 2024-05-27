@@ -13,22 +13,38 @@ namespace BoomBox.Scripts.Spotify
     [HasModSensitiveStaticCache]
     public static class SpotifyLoader
     {
-        public const string REDIRECT_URI = "http://localhost:3000/callback";
-        public const string CLIENT_ID = "66fddae670eb48ab8661982cd1ee6b89";
+        internal const string REDIRECT_URI = "http://localhost:3000/callback";
+        internal const string CLIENT_ID = "66fddae670eb48ab8661982cd1ee6b89";
 
         [ModSensitiveStaticCache]
-        public static string token;
+        private static SpotifyAccessToken token;
 
         [ModSensitiveCacheInit]
-        public static void InitToken()
+        internal static void InitToken()
         {
-            if (string.IsNullOrEmpty(token))
+            if (token == null)
             {
-                token = getToken();
+                Console.WriteLine("Initializing token");
+                token = Init();
             }
         }
 
-        public static string getToken()
+        internal static SpotifyAccessToken GetToken()
+        {
+            var difference = DateTime.UtcNow - token.Created;
+            if (difference < TimeSpan.FromHours(1))
+            {
+                return token;
+            }
+
+            var refreshToken = token.AccessToken.refresh_token;
+            var refreshedToken = SpotifyClient.RefreshAccessToken(refreshToken);
+            token = refreshedToken;
+
+            return token;
+        }
+
+        private static SpotifyAccessToken Init()
         {
             PkceCode.Init();
 

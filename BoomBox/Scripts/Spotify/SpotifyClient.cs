@@ -219,6 +219,59 @@ namespace BoomBox.Scripts.Spotify
             }
         }
 
+        public static SpotifyAccessToken RefreshAccessToken(string refreshToken)
+        {
+            try
+            {
+                Console.WriteLine("Refreshing access token");
+                var postData = $"grant_type=refresh_token&refresh_token={refreshToken}&client_id={SpotifyLoader.CLIENT_ID}";
+                Console.WriteLine($"Post data: {postData}");
+
+                var request = (HttpWebRequest)WebRequest.Create("https://accounts.spotify.com/api/token");
+                request.Method = "POST";
+                request.ContentType = "application/x-www-form-urlencoded";
+
+                // Write the request data to the request stream
+                var dataBytes = Encoding.UTF8.GetBytes(postData);
+                using (var requestStream = request.GetRequestStream())
+                {
+                    requestStream.Write(dataBytes, 0, dataBytes.Length);
+                }
+
+                // Send the request and get the response
+                using (HttpWebResponse response = (HttpWebResponse)request.GetResponse())
+                {
+                    if (response.StatusCode == HttpStatusCode.OK)
+                    {
+                        using (StreamReader reader = new StreamReader(response.GetResponseStream()))
+                        {
+                            var responseText = reader.ReadToEnd();
+                            Console.WriteLine($"Access Token Response: {responseText}");
+
+                            var accessTokenResponse = JsonMapper.ToObject<AccessTokenResponse>(responseText);
+                            return new SpotifyAccessToken { AccessToken = accessTokenResponse, Created = DateTime.UtcNow };
+                        }
+                    }
+                    else
+                    {
+                        // Read the error response for more details
+                        using (StreamReader reader = new StreamReader(response.GetResponseStream()))
+                        {
+                            var errorResponse = reader.ReadToEnd();
+                            Console.WriteLine($"Error Response: {errorResponse}");
+                        }
+
+                        throw new Exception($"Failed to get token. Status code: {response.StatusCode}");
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Refresh Token Exception: {ex.Message}");
+                throw;
+            }
+        }
+
         private static HttpWebRequest getRequest(string url, string method)
         {
             Console.WriteLine($"Creating request for {url}");
@@ -226,7 +279,7 @@ namespace BoomBox.Scripts.Spotify
             // Create a HttpWebRequest for the specified URL
             var request = (HttpWebRequest)WebRequest.Create(url);
             request.Method = method;
-            request.Headers["Authorization"] = "Bearer " + SpotifyLoader.token;
+            request.Headers["Authorization"] = "Bearer " + SpotifyLoader.GetToken().AccessToken.access_token;
 
             return request;
         }

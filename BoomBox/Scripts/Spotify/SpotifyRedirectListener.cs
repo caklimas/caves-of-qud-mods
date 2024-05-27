@@ -10,7 +10,7 @@ namespace BoomBox.Scripts.Spotify
 {
     internal static class SpotifyRedirectListener
     {
-        public static string StartHttpServerAsync(string redirectUri, string clientId, string codeVerifier)
+        internal static SpotifyAccessToken StartHttpServerAsync(string redirectUri, string clientId, string codeVerifier)
         {
             var listener = new HttpListener();
             listener.Prefixes.Add(redirectUri + "/");
@@ -21,7 +21,7 @@ namespace BoomBox.Scripts.Spotify
             var context = listener.GetContext();
             var code = context.Request.QueryString["code"];
             var response = context.Response;
-            string responseString = "<html><body>Logged into Spotify, you can now close the window. Live and drink!</body></html>";
+            string responseString = "<html><body>Logged into Spotify, you can now close the window and go back to Caves of Qud.<br />Live and drink friend!</body></html>";
             var buffer = Encoding.UTF8.GetBytes(responseString);
             response.ContentLength64 = buffer.Length;
             var output = response.OutputStream;
@@ -35,7 +35,7 @@ namespace BoomBox.Scripts.Spotify
             return GetAccessToken(code, clientId, codeVerifier, redirectUri);
         }
 
-        private static string GetAccessToken(string code, string clientId, string codeVerifier, string redirectUri)
+        private static SpotifyAccessToken GetAccessToken(string code, string clientId, string codeVerifier, string redirectUri)
         {
             var postData = $"grant_type=authorization_code&code={code}&redirect_uri={Uri.EscapeDataString(redirectUri)}&client_id={clientId}&code_verifier={codeVerifier}";
             var request = (HttpWebRequest)WebRequest.Create("https://accounts.spotify.com/api/token");
@@ -62,7 +62,7 @@ namespace BoomBox.Scripts.Spotify
                         Console.WriteLine($"Access Token Response: {responseText}");
 
                         var accessTokenResponse = JsonMapper.ToObject<AccessTokenResponse>(responseText);
-                        return accessTokenResponse.access_token;
+                        return new SpotifyAccessToken { AccessToken = accessTokenResponse, Created = DateTime.UtcNow };
                     }
                 }
                 else
