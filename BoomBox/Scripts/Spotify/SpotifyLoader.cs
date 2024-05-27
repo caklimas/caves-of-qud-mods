@@ -17,6 +17,7 @@ namespace BoomBox.Scripts.Spotify
         internal const string CLIENT_ID = "66fddae670eb48ab8661982cd1ee6b89";
 
         private static SpotifyAccessToken token;
+        private static SpotifyUserProfile profile;
 
         [ModSensitiveCacheInit]
         internal static void InitToken()
