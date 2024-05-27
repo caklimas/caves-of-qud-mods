@@ -1,4 +1,5 @@
 ﻿
+using BoomBox.Scripts.Models;
 using LitJson;
 using System;
 using System.IO;
@@ -9,7 +10,7 @@ namespace BoomBox.Scripts.Spotify
 {
     internal static class SpotifyRedirectListener
     {
-        public static string StartHttpServerAsync(string redirectUri, string clientId, string clientSecret)
+        public static string StartHttpServerAsync(string redirectUri, string clientId, string codeVerifier)
         {
             var listener = new HttpListener();
             listener.Prefixes.Add(redirectUri + "/");
@@ -20,7 +21,7 @@ namespace BoomBox.Scripts.Spotify
             var context = listener.GetContext();
             var code = context.Request.QueryString["code"];
             var response = context.Response;
-            string responseString = "<html><body>You can close this window now.</body></html>";
+            string responseString = "<html><body>Logged into Spotify, you can now close the window. Live and drink!</body></html>";
             var buffer = Encoding.UTF8.GetBytes(responseString);
             response.ContentLength64 = buffer.Length;
             var output = response.OutputStream;
@@ -31,12 +32,12 @@ namespace BoomBox.Scripts.Spotify
             Console.WriteLine($"Authorization code received: {code}");
 
             // Exchange the authorization code for an access token
-            return GetAccessToken(code, clientId, clientSecret, redirectUri);
+            return GetAccessToken(code, clientId, codeVerifier, redirectUri);
         }
 
-        private static string GetAccessToken(string code, string clientId, string clientSecret, string redirectUri)
+        private static string GetAccessToken(string code, string clientId, string codeVerifier, string redirectUri)
         {
-            var postData = $"grant_type=authorization_code&code={code}&redirect_uri={Uri.EscapeDataString(redirectUri)}&client_id={clientId}&client_secret={clientSecret}";
+            var postData = $"grant_type=authorization_code&code={code}&redirect_uri={Uri.EscapeDataString(redirectUri)}&client_id={clientId}&code_verifier={codeVerifier}";
             var request = (HttpWebRequest)WebRequest.Create("https://accounts.spotify.com/api/token");
             request.Method = "POST";
             request.ContentType = "application/x-www-form-urlencoded";
@@ -58,9 +59,9 @@ namespace BoomBox.Scripts.Spotify
                     using (StreamReader reader = new StreamReader(response.GetResponseStream()))
                     {
                         var responseText = reader.ReadToEnd();
-                        var accessTokenResponse = JsonMapper.ToObject<AccessTokenResponse>(responseText);
+                        Console.WriteLine($"Access Token Response: {responseText}");
 
-                        Console.WriteLine($"Found Spotify access token ${accessTokenResponse.access_token}");
+                        var accessTokenResponse = JsonMapper.ToObject<AccessTokenResponse>(responseText);
                         return accessTokenResponse.access_token;
                     }
                 }
@@ -70,10 +71,5 @@ namespace BoomBox.Scripts.Spotify
                 }
             }
         }
-    }
-
-    class AccessTokenResponse
-    {
-        public string access_token { get; set; }
     }
 }

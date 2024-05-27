@@ -49,7 +49,9 @@
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Scripts\BoomBox.cs" />
+    <Compile Include="Scripts\Models\AccessTokenResponse.cs" />
     <Compile Include="Scripts\Models\AvailableDevicesResponse.cs" />
+    <Compile Include="Scripts\Models\PkceCode.cs" />
     <Compile Include="Scripts\Models\PlaybackStateResponse.cs" />
     <Compile Include="Scripts\Models\TransferDevice.cs" />
     <Compile Include="Scripts\Spotify\SpotifyClient.cs" />
