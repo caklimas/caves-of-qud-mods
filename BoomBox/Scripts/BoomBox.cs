@@ -28,7 +28,7 @@ namespace XRL.World.Parts
             E.AddAction(
                 Name: "Select Device",
                 Key: 'S',
-                Display: "select device",
+                Display: "{{W|S}}elect device",
                 Command: "Select Device",
                 WorksTelepathically: true);
 

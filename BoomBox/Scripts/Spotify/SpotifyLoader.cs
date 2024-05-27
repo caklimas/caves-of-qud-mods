@@ -16,7 +16,6 @@ namespace BoomBox.Scripts.Spotify
         internal const string REDIRECT_URI = "http://localhost:3000/callback";
         internal const string CLIENT_ID = "66fddae670eb48ab8661982cd1ee6b89";
 
-        [ModSensitiveStaticCache]
         private static SpotifyAccessToken token;
 
         [ModSensitiveCacheInit]
