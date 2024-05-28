@@ -25,12 +25,22 @@ namespace XRL.World.Parts
                 E.AddAction(Name: "Start", Key: 's', Display: "{{W|s}}tart", Command: "Start", WorksTelekinetically: true);
             }
 
-            E.AddAction(
-                Name: "Select Device",
-                Key: 'S',
-                Display: "{{W|S}}elect device",
-                Command: "Select Device",
-                WorksTelepathically: true);
+            if (SpotifyLoader.Profile.IsPremium)
+            {
+                E.AddAction(
+                    Name: "Select Device",
+                    Key: 'S',
+                    Display: "{{W|S}}elect device",
+                    Command: "Select Device",
+                    WorksTelepathically: true);
+
+                E.AddAction(
+                    Name: "Set Volume",
+                    Key: 'v',
+                    Display: "Set {{W|v}}olume",
+                    Command: "Set Volume",
+                    WorksTelepathically: true);
+            }
 
             return true;
         }
@@ -66,6 +76,10 @@ namespace XRL.World.Parts
                         Popup.Show("No devices available");
                     }
 
+                    return true;
+                case "Set Volume":
+                    var volumePercent = Popup.AskNumber(Message: "Set volume level", Min: 0, Max: 100);
+                    SpotifyClient.SetVolume(volumePercent ?? 100);
                     return true;
                 default:
                     return false;
