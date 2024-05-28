@@ -10,5 +10,7 @@ namespace BoomBox.Scripts.Models
     {
         public string display_name { get; set; }
         public string product { get; set; }
+
+        public bool IsPremium => product.ToLower() == "premium";
     }
 }

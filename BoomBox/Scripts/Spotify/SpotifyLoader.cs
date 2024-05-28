@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Web;
@@ -17,15 +18,16 @@ namespace BoomBox.Scripts.Spotify
         internal const string CLIENT_ID = "66fddae670eb48ab8661982cd1ee6b89";
 
         private static SpotifyAccessToken token;
-        private static SpotifyUserProfile profile;
+
+        internal static SpotifyUserProfile Profile { get; private set; }
 
         [ModSensitiveCacheInit]
         internal static void InitToken()
         {
             if (token == null)
             {
-                Console.WriteLine("Initializing token");
                 token = Init();
+                Profile = SpotifyClient.GetUserProfile();
             }
         }
 

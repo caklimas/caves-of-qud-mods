@@ -12,7 +12,8 @@ namespace BoomBox.Scripts.Spotify
     {
         private const string BASE_URL = "https://api.spotify.com/v1/";
 
-        public static void PausePlayback() {
+        public static void PausePlayback()
+        {
             try
             {
                 Console.WriteLine("Pausing spotify player");
@@ -27,19 +28,7 @@ namespace BoomBox.Scripts.Spotify
                 using (HttpWebResponse response = (HttpWebResponse)request.GetResponse())
                 {
                     // Check the response status code
-                    if (response.StatusCode == HttpStatusCode.OK)
-                    {
-                        // Read the response stream
-                        using (Stream responseStream = response.GetResponseStream())
-                        {
-                            StreamReader reader = new StreamReader(responseStream, Encoding.UTF8);
-                            var responseBody = reader.ReadToEnd();
-                            
-                            Console.WriteLine("Playback paused successfully.");
-                            Console.WriteLine($"{responseBody}");
-                        }
-                    }
-                    else
+                    if (response.StatusCode != HttpStatusCode.OK && response.StatusCode != HttpStatusCode.NoContent)
                     {
                         Console.WriteLine($" Pause Error: {response.StatusCode}");
                     }
@@ -57,7 +46,7 @@ namespace BoomBox.Scripts.Spotify
             {
                 Console.WriteLine("Resuming spotify player");
                 var baseUri = $"{BASE_URL}me/player/play";
-                
+
                 var builder = new UriBuilder(baseUri);
 
                 var request = getRequest(builder.ToString(), "PUT");
@@ -67,21 +56,9 @@ namespace BoomBox.Scripts.Spotify
                 using (HttpWebResponse response = (HttpWebResponse)request.GetResponse())
                 {
                     // Check the response status code
-                    if (response.StatusCode == HttpStatusCode.OK)
+                    if (response.StatusCode != HttpStatusCode.OK && response.StatusCode != HttpStatusCode.NoContent)
                     {
-                        // Read the response stream
-                        using (Stream responseStream = response.GetResponseStream())
-                        {
-                            StreamReader reader = new StreamReader(responseStream, Encoding.UTF8);
-                            var responseBody = reader.ReadToEnd();
-
-                            Console.WriteLine("Playback resumed successfully.");
-                            Console.WriteLine($"{responseBody}");
-                        }
-                    }
-                    else
-                    {
-                        Console.WriteLine($"Resume Error: {response.StatusCode}");
+                        Console.WriteLine($" Pause Error: {response.StatusCode}");
                     }
                 }
             }
@@ -96,7 +73,7 @@ namespace BoomBox.Scripts.Spotify
             try
             {
                 Console.WriteLine("Getting playback state");
-                
+
                 var request = getRequest($"{BASE_URL}me/player", "GET");
                 request.ContentLength = 0;
 
@@ -121,7 +98,7 @@ namespace BoomBox.Scripts.Spotify
                         return null;
                     }
                     else
-                    { 
+                    {
                         Console.WriteLine($"Error: {response.StatusCode}");
                         return null;
                     }
@@ -307,6 +284,37 @@ namespace BoomBox.Scripts.Spotify
             {
                 Console.WriteLine($"User Profile Exception: {ex.Message}");
                 return null;
+            }
+        }
+
+        public static void SetVolume(int volumePercent)
+        {
+            try
+            {
+                Console.WriteLine($"Setting volume to {volumePercent}%");
+                var baseUri = $"{BASE_URL}me/player/volume";
+                var query = HttpUtility.ParseQueryString(string.Empty);
+                query["volume_percent"] = volumePercent.ToString();
+
+                var builder = new UriBuilder(baseUri);
+                builder.Query = query.ToString();
+
+                var request = getRequest(builder.ToString(), "PUT");
+                request.ContentLength = 0;
+
+                // Get the response
+                using (HttpWebResponse response = (HttpWebResponse)request.GetResponse())
+                {
+                    // Check the response status code
+                    if (response.StatusCode != HttpStatusCode.OK && response.StatusCode != HttpStatusCode.NoContent)
+                    {
+                        Console.WriteLine($"Set Volume Error: {response.StatusCode}");
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Set Volume Exception: {ex.Message}");
             }
         }
 
