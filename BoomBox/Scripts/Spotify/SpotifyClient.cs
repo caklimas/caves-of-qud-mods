@@ -27,7 +27,6 @@ namespace BoomBox.Scripts.Spotify
                 // Get the response
                 using (HttpWebResponse response = (HttpWebResponse)request.GetResponse())
                 {
-                    // Check the response status code
                     if (response.StatusCode != HttpStatusCode.OK && response.StatusCode != HttpStatusCode.NoContent)
                     {
                         Console.WriteLine($" Pause Error: {response.StatusCode}");
@@ -52,10 +51,8 @@ namespace BoomBox.Scripts.Spotify
                 var request = getRequest(builder.ToString(), "PUT");
                 request.ContentLength = 0;
 
-                // Get the response
                 using (HttpWebResponse response = (HttpWebResponse)request.GetResponse())
                 {
-                    // Check the response status code
                     if (response.StatusCode != HttpStatusCode.OK && response.StatusCode != HttpStatusCode.NoContent)
                     {
                         Console.WriteLine($" Pause Error: {response.StatusCode}");
@@ -77,13 +74,10 @@ namespace BoomBox.Scripts.Spotify
                 var request = getRequest($"{BASE_URL}me/player", "GET");
                 request.ContentLength = 0;
 
-                // Get the response
                 using (HttpWebResponse response = (HttpWebResponse)request.GetResponse())
                 {
-                    // Check the response status code
                     if (response.StatusCode == HttpStatusCode.OK)
                     {
-                        // Read the response stream
                         using (Stream responseStream = response.GetResponseStream())
                         {
                             StreamReader reader = new StreamReader(responseStream, Encoding.UTF8);
@@ -119,13 +113,10 @@ namespace BoomBox.Scripts.Spotify
 
                 var request = getRequest($"{BASE_URL}me/player/devices", "GET");
 
-                // Get the response
                 using (HttpWebResponse response = (HttpWebResponse)request.GetResponse())
                 {
-                    // Check the response status code
                     if (response.StatusCode == HttpStatusCode.OK)
                     {
-                        // Read the response stream
                         using (Stream responseStream = response.GetResponseStream())
                         {
                             StreamReader reader = new StreamReader(responseStream, Encoding.UTF8);
@@ -168,23 +159,9 @@ namespace BoomBox.Scripts.Spotify
                     streamWriter.Write(json);
                 }
 
-                // Get the response
                 using (HttpWebResponse response = (HttpWebResponse)request.GetResponse())
                 {
-                    // Check the response status code
-                    if (response.StatusCode == HttpStatusCode.OK)
-                    {
-                        // Read the response stream
-                        using (Stream responseStream = response.GetResponseStream())
-                        {
-                            StreamReader reader = new StreamReader(responseStream, Encoding.UTF8);
-                            var responseBody = reader.ReadToEnd();
-
-                            Console.WriteLine("Transfer Playback successful.");
-                            Console.WriteLine($"{responseBody}");
-                        }
-                    }
-                    else
+                    if (response.StatusCode != HttpStatusCode.OK && response.StatusCode != HttpStatusCode.NoContent)
                     {
                         Console.WriteLine($"Transfer Playback Error: {response.StatusCode}");
                     }
@@ -315,6 +292,48 @@ namespace BoomBox.Scripts.Spotify
             catch (Exception ex)
             {
                 Console.WriteLine($"Set Volume Exception: {ex.Message}");
+            }
+        }
+
+        public static void SkipToNext()
+        {
+            try
+            {
+                var request = getRequest($"{BASE_URL}me/player/next", "POST");
+                request.ContentLength = 0;
+
+                using (HttpWebResponse response = (HttpWebResponse)request.GetResponse())
+                {
+                    if (response.StatusCode != HttpStatusCode.OK && response.StatusCode != HttpStatusCode.NoContent)
+                    {
+                        Console.WriteLine($"Skip to Next Error: {response.StatusCode}");
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Skip to Next Exception: {ex.Message}");
+            }
+        }
+
+        public static void SkipToPrevious()
+        {
+            try
+            {
+                var request = getRequest($"{BASE_URL}me/player/previous", "POST");
+                request.ContentLength = 0;
+
+                using (HttpWebResponse response = (HttpWebResponse)request.GetResponse())
+                {
+                    if (response.StatusCode != HttpStatusCode.OK && response.StatusCode != HttpStatusCode.NoContent)
+                    {
+                        Console.WriteLine($"Skip to Previous Error: {response.StatusCode}");
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Skip to Previous Exception: {ex.Message}");
             }
         }
 

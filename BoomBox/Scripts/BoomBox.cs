@@ -28,10 +28,17 @@ namespace XRL.World.Parts
             if (SpotifyLoader.Profile.IsPremium)
             {
                 E.AddAction(
-                    Name: "Select Device",
-                    Key: 'S',
-                    Display: "{{W|S}}elect device",
-                    Command: "Select Device",
+                    Name: "Skip to Next",
+                    Key: 'n',
+                    Display: "Skip to {{W|N}}ext",
+                    Command: "Skip to Next",
+                    WorksTelepathically: true);
+
+                E.AddAction(
+                    Name: "Skip to Previous",
+                    Key: 'P',
+                    Display: "Skip to {{W|P}}revious",
+                    Command: "Skip to Previous",
                     WorksTelepathically: true);
 
                 E.AddAction(
@@ -39,6 +46,13 @@ namespace XRL.World.Parts
                     Key: 'v',
                     Display: "Set {{W|v}}olume",
                     Command: "Set Volume",
+                    WorksTelepathically: true);
+
+                E.AddAction(
+                    Name: "Select Device",
+                    Key: 'S',
+                    Display: "{{W|S}}elect device",
+                    Command: "Select Device",
                     WorksTelepathically: true);
             }
 
@@ -80,6 +94,12 @@ namespace XRL.World.Parts
                 case "Set Volume":
                     var volumePercent = Popup.AskNumber(Message: "Set volume level", Min: 0, Max: 100);
                     SpotifyClient.SetVolume(volumePercent ?? 100);
+                    return true;
+                case "Skip to Next":
+                    SpotifyClient.SkipToNext();
+                    return true;
+                case "Skip to Previous":
+                    SpotifyClient.SkipToPrevious();
                     return true;
                 default:
                     return false;
