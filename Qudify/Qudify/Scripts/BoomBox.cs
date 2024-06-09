@@ -107,7 +107,26 @@ namespace XRL.World.Parts
                     SpotifyClient.SkipToPrevious();
                     return true;
                 case SpotifyCommands.SEARCH:
-                    var tracks = Popup.AskString("Search for tracks to play");
+                    var query = Popup.AskString("Search for tracks to play");
+                    var spotifyTracks = SpotifyClient.Search(query);
+
+                    Console.WriteLine($"spotifyTracks: {spotifyTracks}");
+                    Console.WriteLine($"spotifyTracks.tracks: {spotifyTracks.tracks?.ToString() ?? "none"}");
+                    Console.WriteLine($"spotifyTracks.tracks.items: {spotifyTracks.tracks.items.Length}");
+
+                    var trackIds = spotifyTracks.tracks.items.Select(track => track.id).ToList();
+                    var trackStrings = spotifyTracks.tracks.items.Select(track => track.ToString()).ToList();
+
+                    var trackIndex = Popup.ShowOptionList(
+                            Title: "Select Device",
+                            Options: trackStrings,
+                            AllowEscape: true);
+
+                    if (trackIndex != -1)
+                    {
+                        Popup.Show($"You selected {trackIds[trackIndex]}");
+                    }
+
                     return true;
                 default:
                     return base.HandleEvent(E);
