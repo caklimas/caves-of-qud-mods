@@ -1,4 +1,4 @@
-﻿using BoomBox.Scripts.Spotify;
+﻿using Qudify.Scripts.Spotify;
 using System;
 using System.Linq;
 using XRL.UI;
@@ -10,12 +10,14 @@ namespace XRL.World.Parts
     {
         public override bool HandleEvent(GetInventoryActionsEvent E)
         {
+            if (SpotifyLoader.GetToken() == null)
+            {
+                return base.HandleEvent(E);
+            }
+
             E.Actions.Clear();
 
-            Console.WriteLine("Handle GetInventoryActionsEvent");
-
             var playbackState = SpotifyClient.GetPlaybackState();
-
             if (playbackState != null && playbackState.is_playing)
             {
                 E.AddAction(Name: "Pause", Key: 'p', Display: "{{W|p}}ause", Command: "Pause", WorksTelekinetically: true);
@@ -29,7 +31,7 @@ namespace XRL.World.Parts
             {
                 E.AddAction(
                     Name: "Skip to Next",
-                    Key: 'n',
+                    Key: 'N',
                     Display: "Skip to {{W|N}}ext",
                     Command: "Skip to Next",
                     WorksTelepathically: true);
@@ -102,7 +104,7 @@ namespace XRL.World.Parts
                     SpotifyClient.SkipToPrevious();
                     return true;
                 default:
-                    return false;
+                    return base.HandleEvent(E);
             }
         }
 

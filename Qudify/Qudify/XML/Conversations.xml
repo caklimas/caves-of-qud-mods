@@ -1,0 +1,30 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<conversations>
+  <conversation ID="Qudify_Cruxius">
+    <start ID="Welcome">
+      <text>
+       Greetings and salutations =name=! Would you like to sit awhile and come appreciate the music I have to offer?
+      </text>
+      <choice Target="WhoIsCruxius">I am =name=. Who are you?</choice>
+      <choice Target="WhatDoesThisMean">I noticed the unusual sounds coming from here! What is generating this illustrious sound?</choice>
+      <choice Target="End">At the moment, I'd like to listen to the music provided by this land. Live and drink.</choice>
+    </start>
+    <node ID="WhoIsCruxius" Inherits="Welcome">
+      <text>
+        My name is Cruxius, pleased to meet you!
+      </text>
+    </node>
+    <node ID="WhatDoesThisMean" Inherits="Welcome">
+      <text>
+        I have a strange device that will allow you browse and play many different songs from different realms.
+        
+        While the sounds of Qud are magical, I come to share other types of music from many different places.
+      </text>
+      <choice Target="QuestStart">Is there any way I can listen to music like this as I explore Qud?</choice>
+    </node>
+    <node ID="QuestStart">
+      <text>Why yes! But first you have to do something for me.</text>
+      <choice ID="AcceptQuest" Target="Accepted" StartQuest="Cruxius_Qudify_MusicDiscovery">I'll do it!</choice>
+    </node>
+  </conversation>
+</conversations>

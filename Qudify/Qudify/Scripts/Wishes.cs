@@ -1,10 +1,10 @@
-﻿using BoomBox.Scripts.Spotify;
+﻿using Qudify.Scripts.Spotify;
 using XRL;
 using XRL.UI;
 using XRL.Wish;
 using XRL.World;
 
-namespace BoomBox.Scripts
+namespace Qudify.Scripts
 {
     [HasWishCommand]
     public class WishHandler

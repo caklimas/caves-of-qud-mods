@@ -1,6 +1,6 @@
-﻿using BoomBox.Scripts.Models;
+﻿using Qudify.Scripts.Models;
 
-namespace BoomBox.Scripts.Spotify
+namespace Qudify.Scripts.Spotify
 {
     internal class SelectedSpotifyDevice
     {

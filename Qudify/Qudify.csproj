@@ -7,8 +7,8 @@
     <ProjectGuid>{7691788A-EA6A-4D83-AED1-CB661125122A}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>BoomBox</RootNamespace>
-    <AssemblyName>BoomBox</AssemblyName>
+    <RootNamespace>Qudify</RootNamespace>
+    <AssemblyName>Qudify</AssemblyName>
     <TargetFrameworkVersion>v4.8.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
@@ -48,29 +48,36 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Scripts\BoomBox.cs" />
-    <Compile Include="Scripts\Models\AccessTokenResponse.cs" />
-    <Compile Include="Scripts\Models\AvailableDevicesResponse.cs" />
-    <Compile Include="Scripts\Models\PkceCode.cs" />
-    <Compile Include="Scripts\Models\PlaybackStateResponse.cs" />
-    <Compile Include="Scripts\Models\SpotifyAccessToken.cs" />
-    <Compile Include="Scripts\Models\SpotifyUserProfile.cs" />
-    <Compile Include="Scripts\Models\TransferDevice.cs" />
-    <Compile Include="Scripts\Spotify\SpotifyClient.cs" />
-    <Compile Include="Scripts\Models\SpotifyDevice.cs" />
-    <Compile Include="Scripts\Spotify\SelectedSpotifyDevice.cs" />
-    <Compile Include="Scripts\Spotify\SpotifyLoader.cs" />
-    <Compile Include="Scripts\Spotify\SpotifyRedirectListener.cs" />
-    <Compile Include="Scripts\Wishes.cs" />
+    <Compile Include="Qudify\Scripts\BoomBox.cs" />
+    <Compile Include="Qudify\Scripts\Models\AccessTokenResponse.cs" />
+    <Compile Include="Qudify\Scripts\Models\AvailableDevicesResponse.cs" />
+    <Compile Include="Qudify\Scripts\Models\PkceCode.cs" />
+    <Compile Include="Qudify\Scripts\Models\PlaybackStateResponse.cs" />
+    <Compile Include="Qudify\Scripts\Models\SpotifyAccessToken.cs" />
+    <Compile Include="Qudify\Scripts\Models\SpotifyUserProfile.cs" />
+    <Compile Include="Qudify\Scripts\Models\TransferDevice.cs" />
+    <Compile Include="Qudify\Scripts\MusicDiscoveryManager.cs" />
+    <Compile Include="Qudify\Scripts\Spotify\SpotifyClient.cs" />
+    <Compile Include="Qudify\Scripts\Models\SpotifyDevice.cs" />
+    <Compile Include="Qudify\Scripts\Spotify\SelectedSpotifyDevice.cs" />
+    <Compile Include="Qudify\Scripts\Spotify\SpotifyLoader.cs" />
+    <Compile Include="Qudify\Scripts\Spotify\SpotifyRedirectListener.cs" />
+    <Compile Include="Qudify\Scripts\Wishes.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Assemblies\Assembly-CSharp.dll" />
-    <Content Include="ObjectBlueprints\Items.xml" />
-    <Content Include="preview.png" />
-    <Content Include="Textures\Cruxius_BoomBox\boom_box.png" />
+    <Content Include="Qudify\XML\Conversations.xml" />
+    <Content Include="Qudify\XML\ObjectBlueprints\Items.xml" />
+    <Content Include="Qudify\XML\ObjectBlueprints\Creatures.xml" />
+    <Content Include="Qudify\preview.png" />
+    <Content Include="Qudify\Textures\Cruxius_BoomBox\boom_box.png" />
+    <Content Include="Qudify\Textures\Cruxius_BoomBox\sw_dromad.png" />
+    <Content Include="Qudify\XML\Quests.xml" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="manifest.json" />
+    <None Include=".editorconfig" />
+    <None Include="Qudify\manifest.json" />
+    <None Include="Qudify\Joppa.rpm" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
