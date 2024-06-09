@@ -6,7 +6,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
-namespace BoomBox.Scripts.Models
+namespace Qudify.Scripts.Models
 {
     internal class PkceCode
     {

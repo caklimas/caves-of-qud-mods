@@ -1,12 +1,13 @@
-﻿using BoomBox.Scripts.Models;
+﻿using Qudify.Scripts.Models;
 using LitJson;
 using System;
 using System.IO;
 using System.Net;
 using System.Text;
 using System.Web;
+using XRL.World.Conversations;
 
-namespace BoomBox.Scripts.Spotify
+namespace Qudify.Scripts.Spotify
 {
     internal static class SpotifyClient
     {
@@ -14,6 +15,11 @@ namespace BoomBox.Scripts.Spotify
 
         public static void PausePlayback()
         {
+            if (SpotifyLoader.GetToken() == null)
+            {
+                return;
+            }
+
             try
             {
                 Console.WriteLine("Pausing spotify player");
@@ -41,6 +47,11 @@ namespace BoomBox.Scripts.Spotify
 
         public static void ResumePlayback()
         {
+            if (SpotifyLoader.GetToken() == null)
+            {
+                return;
+            }
+
             try
             {
                 Console.WriteLine("Resuming spotify player");
@@ -67,6 +78,11 @@ namespace BoomBox.Scripts.Spotify
 
         public static PlaybackStateResponse GetPlaybackState()
         {
+            if (SpotifyLoader.GetToken() == null)
+            {
+                return null;
+            }
+
             try
             {
                 Console.WriteLine("Getting playback state");
@@ -107,6 +123,11 @@ namespace BoomBox.Scripts.Spotify
 
         public static AvailableDevicesResponse GetAvailableDevices()
         {
+            if (SpotifyLoader.GetToken() == null)
+            {
+                return new AvailableDevicesResponse();
+            }
+
             try
             {
                 Console.WriteLine("Getting available devices");
@@ -147,6 +168,11 @@ namespace BoomBox.Scripts.Spotify
 
         public static void TransferPlayback(string deviceId)
         {
+            if (SpotifyLoader.GetToken() == null)
+            {
+                return;
+            }
+
             try
             {
                 Console.WriteLine($"Transferring device to id {deviceId}");
@@ -175,6 +201,11 @@ namespace BoomBox.Scripts.Spotify
 
         public static SpotifyAccessToken RefreshAccessToken(string refreshToken)
         {
+            if (SpotifyLoader.GetToken() == null)
+            {
+                return null;
+            }
+
             try
             {
                 Console.WriteLine("Refreshing access token");
@@ -228,6 +259,11 @@ namespace BoomBox.Scripts.Spotify
 
         public static SpotifyUserProfile GetUserProfile()
         {
+            if (SpotifyLoader.GetToken() == null)
+            {
+                return null;
+            }
+
             try
             {
                 Console.WriteLine("Getting current user profile");
@@ -266,6 +302,11 @@ namespace BoomBox.Scripts.Spotify
 
         public static void SetVolume(int volumePercent)
         {
+            if (SpotifyLoader.GetToken() == null)
+            {
+                return;
+            }
+
             try
             {
                 Console.WriteLine($"Setting volume to {volumePercent}%");
@@ -297,6 +338,11 @@ namespace BoomBox.Scripts.Spotify
 
         public static void SkipToNext()
         {
+            if (SpotifyLoader.GetToken() == null)
+            {
+                return;
+            }
+
             try
             {
                 var request = getRequest($"{BASE_URL}me/player/next", "POST");
@@ -318,6 +364,11 @@ namespace BoomBox.Scripts.Spotify
 
         public static void SkipToPrevious()
         {
+            if (SpotifyLoader.GetToken() == null)
+            {
+                return;
+            }
+
             try
             {
                 var request = getRequest($"{BASE_URL}me/player/previous", "POST");

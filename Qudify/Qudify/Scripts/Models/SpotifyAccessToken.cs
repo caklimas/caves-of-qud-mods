@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BoomBox.Scripts.Models
+namespace Qudify.Scripts.Models
 {
     internal class SpotifyAccessToken
     {

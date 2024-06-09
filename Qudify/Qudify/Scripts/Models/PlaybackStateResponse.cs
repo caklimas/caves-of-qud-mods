@@ -4,10 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BoomBox.Scripts.Models
+namespace Qudify.Scripts.Models
 {
-    internal class AvailableDevicesResponse
+    internal class PlaybackStateResponse
     {
-        public SpotifyDevice[] devices { get; set; }
+        public bool is_playing { get; set; }
     }
 }

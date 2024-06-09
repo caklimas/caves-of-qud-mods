@@ -1,12 +1,13 @@
 ﻿
-using BoomBox.Scripts.Models;
+using Qudify.Scripts.Models;
 using LitJson;
 using System;
 using System.IO;
 using System.Net;
 using System.Text;
+using System.Threading;
 
-namespace BoomBox.Scripts.Spotify
+namespace Qudify.Scripts.Spotify
 {
     internal static class SpotifyRedirectListener
     {
@@ -18,21 +19,39 @@ namespace BoomBox.Scripts.Spotify
 
             Console.WriteLine("Listening for authorization code on " + redirectUri);
 
-            var context = listener.GetContext();
-            var code = context.Request.QueryString["code"];
-            var response = context.Response;
-            string responseString = "<html><body>Logged into Spotify, you can now close the window and go back to Caves of Qud.<br />Live and drink friend!</body></html>";
-            var buffer = Encoding.UTF8.GetBytes(responseString);
-            response.ContentLength64 = buffer.Length;
-            var output = response.OutputStream;
-            output.Write(buffer, 0, buffer.Length);
-            output.Close();
-            listener.Stop();
+            new Thread(() =>
+            {
+                Thread.Sleep(10_000);
+                Console.WriteLine("Stopping listener");
+                listener.Stop();
+            }).Start();
 
-            Console.WriteLine($"Authorization code received: {code}");
+            try
+            {
+                var context = listener.GetContext();
+                var code = context.Request.QueryString["code"];
+                var response = context.Response;
+                string responseString = "<html><body>Logged into Spotify, you can now close the window and go back to Caves of Qud.<br />Live and drink friend!</body></html>";
+                var buffer = Encoding.UTF8.GetBytes(responseString);
+                response.ContentLength64 = buffer.Length;
+                var output = response.OutputStream;
+                output.Write(buffer, 0, buffer.Length);
+                output.Close();
+                listener.Stop();
 
-            // Exchange the authorization code for an access token
-            return GetAccessToken(code, clientId, codeVerifier, redirectUri);
+                Console.WriteLine($"Authorization code received: {code}");
+
+                // Exchange the authorization code for an access token
+                return GetAccessToken(code, clientId, codeVerifier, redirectUri);
+            }
+            catch (HttpListenerException ex)
+            {
+                return null;
+            }
+            finally
+            {
+                listener.Stop();
+            }
         }
 
         private static SpotifyAccessToken GetAccessToken(string code, string clientId, string codeVerifier, string redirectUri)

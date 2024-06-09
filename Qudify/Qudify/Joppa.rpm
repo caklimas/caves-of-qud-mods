@@ -1,0 +1,9 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Map
+   Width="80"
+   Height="25">
+  <cell X="42" Y="6">
+    <object Name="Cruxius_Qudify_Cruxius"></object>
+    <object Name="Floor Cushion"></object>
+  </cell>
+</Map>

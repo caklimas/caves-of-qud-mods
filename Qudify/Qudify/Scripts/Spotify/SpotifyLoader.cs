@@ -1,4 +1,4 @@
-﻿using BoomBox.Scripts.Models;
+﻿using Qudify.Scripts.Models;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 using System.Web;
 using XRL;
 
-namespace BoomBox.Scripts.Spotify
+namespace Qudify.Scripts.Spotify
 {
     [HasModSensitiveStaticCache]
     public static class SpotifyLoader
@@ -18,21 +18,33 @@ namespace BoomBox.Scripts.Spotify
         internal const string CLIENT_ID = "66fddae670eb48ab8661982cd1ee6b89";
 
         private static SpotifyAccessToken token;
+        private static bool fetchedToken = false;
 
         internal static SpotifyUserProfile Profile { get; private set; }
 
         [ModSensitiveCacheInit]
         internal static void InitToken()
         {
-            if (token == null)
+            if (token == null && !fetchedToken)
             {
+                Console.WriteLine("Getting token");
+                fetchedToken = true;
                 token = Init();
-                Profile = SpotifyClient.GetUserProfile();
+
+                if (token != null)
+                {
+                    Profile = SpotifyClient.GetUserProfile();
+                }
             }
         }
 
         internal static SpotifyAccessToken GetToken()
         {
+            if (token == null)
+            {
+                return token;
+            }
+
             var difference = DateTime.UtcNow - token.Created;
             if (difference < TimeSpan.FromHours(1))
             {

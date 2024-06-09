@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<quests>
+  <quest Name="Music Discovery" Level="25" Manager="Cruxius_Qudify_MusicDiscoveryManager" ID="Cruxius_Qudify_MusicDiscovery" Accomplishment="You got the power of music.">
+
+    <step ID="DoSomething" Name="Go do something" XP="0">
+      <text>You'll have to do something to get the item from Cruxius's possession.</text>
+    </step>
+
+    <step ID="CollectReward" Name="Speak to Cruxius" XP="10000">
+      <text>Speak to Cruxius about your reward.</text>
+    </step>
+  </quest>
+</quests>
