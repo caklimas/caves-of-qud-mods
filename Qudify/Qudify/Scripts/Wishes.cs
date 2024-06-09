@@ -12,7 +12,7 @@ namespace Qudify.Scripts
         [WishCommand(Command = "getboombox")]
         public static void GetBoomBox()
         {
-            The.Player.Inventory.AddObjectToInventory(GameObject.Create("Cruxius_BoomBox_Boom Box"));
+            The.Player.Inventory.AddObjectToInventory(GameObject.Create("Cruxius_Qudify_Boom Box"));
         }
 
         [WishCommand(Command = "cruxius")]

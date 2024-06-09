@@ -12,5 +12,10 @@ namespace XRL.World.QuestManagers
         {
             return GameObject.FindByBlueprint("Cruxius_Qudify_Cruxius");
         }
+
+        public override void OnQuestComplete()
+        {
+            The.Player.Inventory.AddObjectToInventory(GameObject.Create("Cruxius_Qudify_Boom Box"));
+        }
     }
 }
