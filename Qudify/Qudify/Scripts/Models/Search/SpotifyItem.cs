@@ -9,6 +9,7 @@ namespace Qudify.Qudify.Scripts.Models.Search
     internal class SpotifyItem
     {
         public string id { get; set; }
+        public string uri { get; set; }
         public string name { get; set; }
         public SpotifyArtist[] artists { get; set; }
 

@@ -7,6 +7,7 @@ using System.Text;
 using System.Web;
 using XRL.World.Conversations;
 using Qudify.Qudify.Scripts.Models.Search;
+using Qudify.Qudify.Scripts.Models.ResumePlayback;
 
 namespace Qudify.Scripts.Spotify
 {
@@ -48,6 +49,11 @@ namespace Qudify.Scripts.Spotify
 
         public static void ResumePlayback()
         {
+            ResumePlayback(null);
+        }
+
+        public static void ResumePlayback(string trackId)
+        {
             if (SpotifyLoader.GetToken() == null)
             {
                 return;
@@ -61,13 +67,27 @@ namespace Qudify.Scripts.Spotify
                 var builder = new UriBuilder(baseUri);
 
                 var request = getRequest(builder.ToString(), "PUT");
-                request.ContentLength = 0;
+
+                if (trackId != null)
+                {
+                    request.ContentType = "application/json";
+
+                    using (var streamWriter = new StreamWriter(request.GetRequestStream()))
+                    {
+                        var json = JsonMapper.ToJson(new ResumePlaybackData() { uris = new[] { trackId } });
+                        streamWriter.Write(json);
+                    }
+                }
+                else
+                {
+                    request.ContentLength = 0;
+                }
 
                 using (HttpWebResponse response = (HttpWebResponse)request.GetResponse())
                 {
                     if (response.StatusCode != HttpStatusCode.OK && response.StatusCode != HttpStatusCode.NoContent)
                     {
-                        Console.WriteLine($" Pause Error: {response.StatusCode}");
+                        Console.WriteLine($" Resume Playback Error: {response.StatusCode}");
                     }
                 }
             }

@@ -53,6 +53,7 @@
     <Compile Include="Qudify\Scripts\Models\AvailableDevicesResponse.cs" />
     <Compile Include="Qudify\Scripts\Models\PkceCode.cs" />
     <Compile Include="Qudify\Scripts\Models\PlaybackStateResponse.cs" />
+    <Compile Include="Qudify\Scripts\Models\ResumePlayback\ResumePlaybackData.cs" />
     <Compile Include="Qudify\Scripts\Models\Search\SpotifyArtist.cs" />
     <Compile Include="Qudify\Scripts\Models\SpotifyAccessToken.cs" />
     <Compile Include="Qudify\Scripts\Models\SpotifyCommands.cs" />

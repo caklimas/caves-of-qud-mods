@@ -110,11 +110,7 @@ namespace XRL.World.Parts
                     var query = Popup.AskString("Search for tracks to play");
                     var spotifyTracks = SpotifyClient.Search(query);
 
-                    Console.WriteLine($"spotifyTracks: {spotifyTracks}");
-                    Console.WriteLine($"spotifyTracks.tracks: {spotifyTracks.tracks?.ToString() ?? "none"}");
-                    Console.WriteLine($"spotifyTracks.tracks.items: {spotifyTracks.tracks.items.Length}");
-
-                    var trackIds = spotifyTracks.tracks.items.Select(track => track.id).ToList();
+                    var trackUris = spotifyTracks.tracks.items.Select(track => track.uri).ToList();
                     var trackStrings = spotifyTracks.tracks.items.Select(track => track.ToString()).ToList();
 
                     var trackIndex = Popup.ShowOptionList(
@@ -124,7 +120,8 @@ namespace XRL.World.Parts
 
                     if (trackIndex != -1)
                     {
-                        Popup.Show($"You selected {trackIds[trackIndex]}");
+                        Messages.MessageQueue.AddPlayerMessage($"&GNow playing track {trackStrings[trackIndex]}");
+                        SpotifyClient.ResumePlayback(trackUris[trackIndex]);
                     }
 
                     return true;
