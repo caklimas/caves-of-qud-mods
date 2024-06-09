@@ -427,9 +427,6 @@ namespace Qudify.Scripts.Spotify
                         var responseBody = reader.ReadToEnd();
                         var tracks = JsonMapper.ToObject<SpotifyTracks>(responseBody);
 
-
-                        Console.WriteLine($"Search result: {JsonMapper.ToJson(tracks)}");
-
                         return tracks;
                     }
                 }

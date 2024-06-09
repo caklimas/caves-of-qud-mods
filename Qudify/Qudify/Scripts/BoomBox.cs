@@ -11,12 +11,13 @@ namespace XRL.World.Parts
     {
         public override bool HandleEvent(GetInventoryActionsEvent E)
         {
+            E.Actions.Clear();
+
             if (SpotifyLoader.GetToken() == null)
             {
-                return base.HandleEvent(E);
+                E.AddAction(Name: "Connect", Key: 'c', Display: "{{W|c}}onnect", Command: SpotifyCommands.CONNECT, WorksTelekinetically: true);
+                return true;
             }
-
-            E.Actions.Clear();
 
             var playbackState = SpotifyClient.GetPlaybackState();
             if (playbackState != null && playbackState.is_playing)
@@ -124,6 +125,9 @@ namespace XRL.World.Parts
                         SpotifyClient.ResumePlayback(trackUris[trackIndex]);
                     }
 
+                    return true;
+                case SpotifyCommands.CONNECT:
+                    SpotifyLoader.InitToken(true);
                     return true;
                 default:
                     return base.HandleEvent(E);

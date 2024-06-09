@@ -25,9 +25,13 @@ namespace Qudify.Scripts.Spotify
         [ModSensitiveCacheInit]
         internal static void InitToken()
         {
-            if (token == null && !fetchedToken)
+            InitToken(false);
+        }
+
+        internal static void InitToken(bool forceInit)
+        {
+            if (token == null && (!fetchedToken || forceInit))
             {
-                Console.WriteLine("Getting token");
                 fetchedToken = true;
                 token = Init();
 
@@ -57,6 +61,8 @@ namespace Qudify.Scripts.Spotify
 
             return token;
         }
+
+        internal static bool IsLoggedIn() { return token != null; }
 
         private static SpotifyAccessToken Init()
         {
