@@ -44,7 +44,7 @@ namespace Qudify.Scripts.Spotify
                 // Exchange the authorization code for an access token
                 return GetAccessToken(code, clientId, codeVerifier, redirectUri);
             }
-            catch (HttpListenerException ex)
+            catch (HttpListenerException)
             {
                 return null;
             }

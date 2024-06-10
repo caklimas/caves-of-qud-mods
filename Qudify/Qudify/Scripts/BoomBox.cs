@@ -1,4 +1,5 @@
-﻿using Qudify.Scripts.Spotify;
+﻿using Qudify.Qudify.Scripts.Models;
+using Qudify.Scripts.Spotify;
 using System;
 using System.Linq;
 using XRL.UI;
@@ -10,21 +11,22 @@ namespace XRL.World.Parts
     {
         public override bool HandleEvent(GetInventoryActionsEvent E)
         {
+            E.Actions.Clear();
+
             if (SpotifyLoader.GetToken() == null)
             {
-                return base.HandleEvent(E);
+                E.AddAction(Name: "Connect", Key: 'c', Display: "{{W|c}}onnect", Command: SpotifyCommands.CONNECT, WorksTelekinetically: true);
+                return true;
             }
-
-            E.Actions.Clear();
 
             var playbackState = SpotifyClient.GetPlaybackState();
             if (playbackState != null && playbackState.is_playing)
             {
-                E.AddAction(Name: "Pause", Key: 'p', Display: "{{W|p}}ause", Command: "Pause", WorksTelekinetically: true);
+                E.AddAction(Name: "Pause", Key: 'p', Display: "{{W|p}}ause", Command: SpotifyCommands.PAUSE, WorksTelekinetically: true);
             }
             else
             {
-                E.AddAction(Name: "Start", Key: 's', Display: "{{W|s}}tart", Command: "Start", WorksTelekinetically: true);
+                E.AddAction(Name: "Start", Key: 's', Display: "{{W|s}}tart", Command: SpotifyCommands.START, WorksTelekinetically: true);
             }
 
             if (SpotifyLoader.Profile.IsPremium)
@@ -33,29 +35,31 @@ namespace XRL.World.Parts
                     Name: "Skip to Next",
                     Key: 'N',
                     Display: "Skip to {{W|N}}ext",
-                    Command: "Skip to Next",
-                    WorksTelepathically: true);
+                    Command: SpotifyCommands.SKIP_TO_NEXT);
 
                 E.AddAction(
                     Name: "Skip to Previous",
                     Key: 'P',
                     Display: "Skip to {{W|P}}revious",
-                    Command: "Skip to Previous",
-                    WorksTelepathically: true);
+                    Command: SpotifyCommands.SKIP_TO_PREVIOUS);
 
                 E.AddAction(
                     Name: "Set Volume",
                     Key: 'v',
                     Display: "Set {{W|v}}olume",
-                    Command: "Set Volume",
-                    WorksTelepathically: true);
+                    Command: SpotifyCommands.SET_VOLUME);
 
                 E.AddAction(
                     Name: "Select Device",
-                    Key: 'S',
-                    Display: "{{W|S}}elect device",
-                    Command: "Select Device",
-                    WorksTelepathically: true);
+                    Key: 'D',
+                    Display: "Select {{W|D}}evice",
+                    Command: SpotifyCommands.SELECT_DEVICE);
+
+                E.AddAction(
+                    Name: "Search",
+                    Key: 'D',
+                    Display: "{{W|S}}earch",
+                    Command: SpotifyCommands.SEARCH);
             }
 
             return true;
@@ -65,13 +69,13 @@ namespace XRL.World.Parts
         {
             switch (E.Command)
             {
-                case "Pause":
+                case SpotifyCommands.PAUSE:
                     SpotifyClient.PausePlayback();
                     return true;
-                case "Start":
+                case SpotifyCommands.START:
                     SpotifyClient.ResumePlayback();
                     return true;
-                case "Select Device":
+                case SpotifyCommands.SELECT_DEVICE:
                     var availableDevices = SpotifyClient.GetAvailableDevices();
                     if (availableDevices != null && availableDevices.devices.Length > 0)
                     {
@@ -93,15 +97,37 @@ namespace XRL.World.Parts
                     }
 
                     return true;
-                case "Set Volume":
+                case SpotifyCommands.SET_VOLUME:
                     var volumePercent = Popup.AskNumber(Message: "Set volume level", Min: 0, Max: 100);
                     SpotifyClient.SetVolume(volumePercent ?? 100);
                     return true;
-                case "Skip to Next":
+                case SpotifyCommands.SKIP_TO_NEXT:
                     SpotifyClient.SkipToNext();
                     return true;
-                case "Skip to Previous":
+                case SpotifyCommands.SKIP_TO_PREVIOUS:
                     SpotifyClient.SkipToPrevious();
+                    return true;
+                case SpotifyCommands.SEARCH:
+                    var query = Popup.AskString("Search for tracks to play");
+                    var spotifyTracks = SpotifyClient.Search(query);
+
+                    var trackUris = spotifyTracks.tracks.items.Select(track => track.uri).ToList();
+                    var trackStrings = spotifyTracks.tracks.items.Select(track => track.ToString()).ToList();
+
+                    var trackIndex = Popup.ShowOptionList(
+                            Title: "Select Device",
+                            Options: trackStrings,
+                            AllowEscape: true);
+
+                    if (trackIndex != -1)
+                    {
+                        Messages.MessageQueue.AddPlayerMessage($"&GNow playing track {trackStrings[trackIndex]}");
+                        SpotifyClient.ResumePlayback(trackUris[trackIndex]);
+                    }
+
+                    return true;
+                case SpotifyCommands.CONNECT:
+                    SpotifyLoader.InitToken(true);
                     return true;
                 default:
                     return base.HandleEvent(E);

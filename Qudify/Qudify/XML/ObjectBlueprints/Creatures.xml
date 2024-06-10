@@ -13,7 +13,6 @@
     <part Name="AISitting" />
     <tag Name="ExcludeFromDynamicEncounters" Value="*noinherit" />
 
-    <part Name="Description" Short="This creature has weird sounds emanating from his person." />
-    <inventoryobject Blueprint="Cruxius_BoomBox_Boom Box"></inventoryobject>
+    <part Name="Description" Short="You can hear weird sounds coming from his general direction." />
   </object>
 </objects>

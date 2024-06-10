@@ -6,6 +6,8 @@ using System.Net;
 using System.Text;
 using System.Web;
 using XRL.World.Conversations;
+using Qudify.Qudify.Scripts.Models.Search;
+using Qudify.Qudify.Scripts.Models.ResumePlayback;
 
 namespace Qudify.Scripts.Spotify
 {
@@ -47,6 +49,11 @@ namespace Qudify.Scripts.Spotify
 
         public static void ResumePlayback()
         {
+            ResumePlayback(null);
+        }
+
+        public static void ResumePlayback(string trackId)
+        {
             if (SpotifyLoader.GetToken() == null)
             {
                 return;
@@ -60,13 +67,27 @@ namespace Qudify.Scripts.Spotify
                 var builder = new UriBuilder(baseUri);
 
                 var request = getRequest(builder.ToString(), "PUT");
-                request.ContentLength = 0;
+
+                if (trackId != null)
+                {
+                    request.ContentType = "application/json";
+
+                    using (var streamWriter = new StreamWriter(request.GetRequestStream()))
+                    {
+                        var json = JsonMapper.ToJson(new ResumePlaybackData() { uris = new[] { trackId } });
+                        streamWriter.Write(json);
+                    }
+                }
+                else
+                {
+                    request.ContentLength = 0;
+                }
 
                 using (HttpWebResponse response = (HttpWebResponse)request.GetResponse())
                 {
                     if (response.StatusCode != HttpStatusCode.OK && response.StatusCode != HttpStatusCode.NoContent)
                     {
-                        Console.WriteLine($" Pause Error: {response.StatusCode}");
+                        Console.WriteLine($" Resume Playback Error: {response.StatusCode}");
                     }
                 }
             }
@@ -270,13 +291,10 @@ namespace Qudify.Scripts.Spotify
 
                 var request = getRequest($"{BASE_URL}me", "GET");
 
-                // Get the response
                 using (HttpWebResponse response = (HttpWebResponse)request.GetResponse())
                 {
-                    // Check the response status code
                     if (response.StatusCode == HttpStatusCode.OK)
                     {
-                        // Read the response stream
                         using (Stream responseStream = response.GetResponseStream())
                         {
                             StreamReader reader = new StreamReader(responseStream, Encoding.UTF8);
@@ -385,6 +403,38 @@ namespace Qudify.Scripts.Spotify
             catch (Exception ex)
             {
                 Console.WriteLine($"Skip to Previous Exception: {ex.Message}");
+            }
+        }
+
+        public static SpotifyTracks Search(string query)
+        {
+            var baseUri = "https://api.spotify.com/v1/search";
+            var queryString = HttpUtility.ParseQueryString(string.Empty);
+            queryString["q"] = query;
+            queryString["type"] = "track";
+
+            var builder = new UriBuilder(baseUri);
+            builder.Query = queryString.ToString();
+
+            var request = getRequest(builder.ToString(), "GET");
+            using (HttpWebResponse response = (HttpWebResponse)request.GetResponse())
+            {
+                if (response.StatusCode == HttpStatusCode.OK)
+                {
+                    using (Stream responseStream = response.GetResponseStream())
+                    {
+                        StreamReader reader = new StreamReader(responseStream, Encoding.UTF8);
+                        var responseBody = reader.ReadToEnd();
+                        var tracks = JsonMapper.ToObject<SpotifyTracks>(responseBody);
+
+                        return tracks;
+                    }
+                }
+                else
+                {
+                    Console.WriteLine($"Search Error Status: {response.StatusCode}");
+                    return null;
+                }
             }
         }
 
