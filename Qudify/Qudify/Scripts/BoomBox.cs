@@ -98,6 +98,11 @@ namespace XRL.World.Parts
 
                     return true;
                 case SpotifyCommands.SET_VOLUME:
+                    if (!SpotifyLoader.CheckPremium())
+                    {
+                        return true;
+                    }
+
                     var volumePercent = Popup.AskNumber(Message: "Set volume level", Min: 0, Max: 100);
                     SpotifyClient.SetVolume(volumePercent ?? 100);
                     return true;
@@ -108,6 +113,11 @@ namespace XRL.World.Parts
                     SpotifyClient.SkipToPrevious();
                     return true;
                 case SpotifyCommands.SEARCH:
+                    if (!SpotifyLoader.CheckPremium())
+                    {
+                        return true;
+                    }
+
                     var query = Popup.AskString("Search for tracks to play");
                     var spotifyTracks = SpotifyClient.Search(query);
 

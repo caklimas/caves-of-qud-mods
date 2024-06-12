@@ -8,6 +8,7 @@ using System.Web;
 using XRL.World.Conversations;
 using Qudify.Qudify.Scripts.Models.Search;
 using Qudify.Qudify.Scripts.Models.ResumePlayback;
+using XRL.UI;
 
 namespace Qudify.Scripts.Spotify
 {
@@ -144,7 +145,7 @@ namespace Qudify.Scripts.Spotify
 
         public static AvailableDevicesResponse GetAvailableDevices()
         {
-            if (SpotifyLoader.GetToken() == null)
+            if (SpotifyLoader.GetToken() == null || !SpotifyLoader.CheckPremium())
             {
                 return new AvailableDevicesResponse();
             }
@@ -189,14 +190,13 @@ namespace Qudify.Scripts.Spotify
 
         public static void TransferPlayback(string deviceId)
         {
-            if (SpotifyLoader.GetToken() == null)
+            if (SpotifyLoader.GetToken() == null || !SpotifyLoader.CheckPremium())
             {
                 return;
             }
 
             try
             {
-                Console.WriteLine($"Transferring device to id {deviceId}");
                 var request = getRequest($"{BASE_URL}me/player", "PUT");
                 request.ContentType = "application/json";
 
@@ -356,7 +356,7 @@ namespace Qudify.Scripts.Spotify
 
         public static void SkipToNext()
         {
-            if (SpotifyLoader.GetToken() == null)
+            if (SpotifyLoader.GetToken() == null || !SpotifyLoader.CheckPremium())
             {
                 return;
             }
@@ -382,7 +382,7 @@ namespace Qudify.Scripts.Spotify
 
         public static void SkipToPrevious()
         {
-            if (SpotifyLoader.GetToken() == null)
+            if (SpotifyLoader.GetToken() == null || !SpotifyLoader.CheckPremium())
             {
                 return;
             }
