@@ -1,0 +1,4 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<commands>
+  <command ID="Cruxius_Qudify_Search" DisplayText="Search for Song" Category="Qudify" />
+</commands>
