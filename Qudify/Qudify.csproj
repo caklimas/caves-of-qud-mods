@@ -64,6 +64,8 @@
     <Compile Include="Qudify\Scripts\Models\TransferDevice.cs" />
     <Compile Include="Qudify\Scripts\MusicDiscoveryManager.cs" />
     <Compile Include="Qudify\Scripts\QudifyCommandListener.cs" />
+    <Compile Include="Qudify\Scripts\QudifyLoadGameHandler.cs" />
+    <Compile Include="Qudify\Scripts\QudifyPlayerMutator.cs" />
     <Compile Include="Qudify\Scripts\Spotify\SpotifyClient.cs" />
     <Compile Include="Qudify\Scripts\Models\SpotifyDevice.cs" />
     <Compile Include="Qudify\Scripts\Spotify\SelectedSpotifyDevice.cs" />

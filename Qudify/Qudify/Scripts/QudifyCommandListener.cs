@@ -8,13 +8,14 @@ using XRL.UI;
 
 namespace XRL.World.Parts
 {
+    [Serializable]
     public class Qudify_CommandListener : IPart
     {
         public const string SearchCommand = "Cruxius_Qudify_Search";
 
         public override void Register(GameObject Object, IEventRegistrar Registrar)
         {
-            Object.RegisterPartEvent(this, SearchCommand);
+            Registrar.Register(SearchCommand);
             base.Register(Object, Registrar);
         }
 
@@ -24,7 +25,7 @@ namespace XRL.World.Parts
             {
                 if (!SpotifyLoader.CheckPremium())
                 {
-                    return true;
+                    return base.FireEvent(E);
                 }
 
                 var query = Popup.AskString("Search for tracks to play");
@@ -43,8 +44,6 @@ namespace XRL.World.Parts
                     Messages.MessageQueue.AddPlayerMessage($"&GNow playing track {trackStrings[trackIndex]}");
                     SpotifyClient.ResumePlayback(trackUris[trackIndex]);
                 }
-
-                return true;
             }
 
             return base.FireEvent(E);
