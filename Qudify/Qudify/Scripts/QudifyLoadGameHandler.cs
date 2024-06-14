@@ -13,7 +13,7 @@ namespace XRL.World.Parts
         [CallAfterGameLoaded]
         public static void MyLoadGameCallback()
         {
-            var player = XRLCore.Core?.Game?.Player?.Body;
+            var player = The.Player;
             if (player != null)
             {
                 player.RequirePart<Qudify_CommandListener>();

@@ -1,4 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <commands>
-  <command ID="Cruxius_Qudify_Search" DisplayText="Search for Song" Category="Qudify" />
+  <command ID="CruxiusQudifySearch" DisplayText="Search for Song" Category="Qudify" Layer="Adventure" Auto="DownPass">
+  </command>
 </commands>

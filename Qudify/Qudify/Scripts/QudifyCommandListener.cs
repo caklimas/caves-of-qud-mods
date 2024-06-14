@@ -1,4 +1,5 @@
-﻿using Qudify.Scripts.Spotify;
+﻿using LitJson;
+using Qudify.Scripts.Spotify;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,11 +12,11 @@ namespace XRL.World.Parts
     [Serializable]
     public class Qudify_CommandListener : IPart
     {
-        public const string SearchCommand = "Cruxius_Qudify_Search";
+        public const string SearchCommand = "CruxiusQudifySearch";
 
         public override void Register(GameObject Object, IEventRegistrar Registrar)
         {
-            Registrar.Register(SearchCommand);
+            Object.RegisterPartEvent(this, SearchCommand);
             base.Register(Object, Registrar);
         }
 

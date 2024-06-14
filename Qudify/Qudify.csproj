@@ -75,13 +75,13 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Assemblies\Assembly-CSharp.dll" />
+    <Content Include="Qudify\preview.png" />
+    <Content Include="Qudify\Textures\Cruxius_Qudify\boom_box.png" />
+    <Content Include="Qudify\Textures\Cruxius_Qudify\sw_dromad.png" />
     <Content Include="Qudify\XML\Commands.xml" />
     <Content Include="Qudify\XML\Conversations.xml" />
     <Content Include="Qudify\XML\ObjectBlueprints\Items.xml" />
     <Content Include="Qudify\XML\ObjectBlueprints\Creatures.xml" />
-    <Content Include="Qudify\preview.png" />
-    <Content Include="Qudify\Textures\Cruxius_BoomBox\boom_box.png" />
-    <Content Include="Qudify\Textures\Cruxius_BoomBox\sw_dromad.png" />
     <Content Include="Qudify\XML\Quests.xml" />
   </ItemGroup>
   <ItemGroup>
