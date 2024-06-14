@@ -1,4 +1,5 @@
 ﻿using LitJson;
+using Qudify.Qudify.Scripts;
 using Qudify.Scripts.Spotify;
 using System;
 using System.Collections.Generic;
@@ -24,27 +25,7 @@ namespace XRL.World.Parts
         {
             if (E.ID == SearchCommand)
             {
-                if (!SpotifyLoader.CheckPremium())
-                {
-                    return base.FireEvent(E);
-                }
-
-                var query = Popup.AskString("Search for tracks to play");
-                var spotifyTracks = SpotifyClient.Search(query);
-
-                var trackUris = spotifyTracks.tracks.items.Select(track => track.uri).ToList();
-                var trackStrings = spotifyTracks.tracks.items.Select(track => track.ToString()).ToList();
-
-                var trackIndex = Popup.ShowOptionList(
-                        Title: "Select Device",
-                        Options: trackStrings,
-                        AllowEscape: true);
-
-                if (trackIndex != -1)
-                {
-                    Messages.MessageQueue.AddPlayerMessage($"&GNow playing track {trackStrings[trackIndex]}");
-                    SpotifyClient.ResumePlayback(trackUris[trackIndex]);
-                }
+                return QudifyActions.Search();
             }
 
             return base.FireEvent(E);

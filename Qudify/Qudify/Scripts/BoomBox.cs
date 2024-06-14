@@ -1,4 +1,5 @@
-﻿using Qudify.Qudify.Scripts.Models;
+﻿using Qudify.Qudify.Scripts;
+using Qudify.Qudify.Scripts.Models;
 using Qudify.Scripts.Spotify;
 using System;
 using System.Linq;
@@ -113,29 +114,7 @@ namespace XRL.World.Parts
                     SpotifyClient.SkipToPrevious();
                     return true;
                 case SpotifyCommands.SEARCH:
-                    if (!SpotifyLoader.CheckPremium())
-                    {
-                        return true;
-                    }
-
-                    var query = Popup.AskString("Search for tracks to play");
-                    var spotifyTracks = SpotifyClient.Search(query);
-
-                    var trackUris = spotifyTracks.tracks.items.Select(track => track.uri).ToList();
-                    var trackStrings = spotifyTracks.tracks.items.Select(track => track.ToString()).ToList();
-
-                    var trackIndex = Popup.ShowOptionList(
-                            Title: "Select Device",
-                            Options: trackStrings,
-                            AllowEscape: true);
-
-                    if (trackIndex != -1)
-                    {
-                        Messages.MessageQueue.AddPlayerMessage($"&GNow playing track {trackStrings[trackIndex]}");
-                        SpotifyClient.ResumePlayback(trackUris[trackIndex]);
-                    }
-
-                    return true;
+                    return QudifyActions.Search();
                 case SpotifyCommands.CONNECT:
                     SpotifyLoader.InitToken(true);
                     return true;
