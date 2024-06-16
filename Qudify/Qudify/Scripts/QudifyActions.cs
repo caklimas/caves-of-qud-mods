@@ -10,11 +10,11 @@ namespace Qudify.Qudify.Scripts
 {
     public class QudifyActions
     {
-        public static bool Search()
+        public static void Search()
         {
             if (!SpotifyLoader.CheckPremium())
             {
-                return true;
+                return;
             }
 
             var query = Popup.AskString("Search for tracks to play");
@@ -34,7 +34,61 @@ namespace Qudify.Qudify.Scripts
                 SpotifyClient.ResumePlayback(trackUris[trackIndex]);
             }
 
-            return true;
+            return;
+        }
+
+        public static void SetVolume()
+        {
+            if (!SpotifyLoader.CheckPremium())
+            {
+                return;
+            }
+
+            var volumePercent = Popup.AskNumber(Message: "Set volume level", Min: 0, Max: 100);
+            SpotifyClient.SetVolume(volumePercent ?? 100);
+        }
+
+        public static void SkipToNext()
+        {
+            SpotifyClient.SkipToNext();
+        }
+
+        public static void SkipToPrevious()
+        {
+            SpotifyClient.SkipToPrevious();
+        }
+
+        public static void SelectDevice()
+        {
+            var availableDevices = SpotifyClient.GetAvailableDevices();
+            if (availableDevices != null && availableDevices.devices.Length > 0)
+            {
+                var names = availableDevices.devices.Select(d => d.name).ToList();
+                var index = Popup.ShowOptionList(
+                    Title: "Select Device",
+                    Options: names,
+                    AllowEscape: true);
+
+                if (index != -1)
+                {
+                    SelectedSpotifyDevice.SelectedDevice = availableDevices.devices[index];
+                    SpotifyClient.TransferPlayback(SelectedSpotifyDevice.SelectedDevice.id);
+                }
+            }
+            else
+            {
+                Popup.Show("No devices available");
+            }
+        }
+
+        public static void ResumePlayback()
+        {
+            SpotifyClient.ResumePlayback();
+        }
+
+        public static void PausePlayback()
+        {
+            SpotifyClient.PausePlayback();
         }
     }
 }

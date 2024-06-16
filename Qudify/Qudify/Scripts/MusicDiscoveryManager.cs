@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using XRL.World.Parts;
 
 namespace XRL.World.QuestManagers
 {
@@ -15,7 +16,7 @@ namespace XRL.World.QuestManagers
 
         public override void OnQuestComplete()
         {
-            The.Player.Inventory.AddObjectToInventory(GameObject.Create("Cruxius_Qudify_Boom Box"));
+            The.Player.Inventory.AddObjectToInventory(GameObject.Create(Cruxius_BoomBox.BlueprintName));
         }
     }
 }

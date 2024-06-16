@@ -14,21 +14,75 @@ namespace XRL.World.Parts
     public class Qudify_CommandListener : IPart
     {
         public const string SearchCommand = "CruxiusQudifySearch";
+        public const string SetVolumeCommand = "CruxiusQudifySetVolume";
+        public const string SkipToNextCommand = "CruxiusQudifySkipToNext";
+        public const string SkipToPreviousCommand = "CruxiusQudifySkipToPrevious";
+        public const string SelectDeviceCommand = "CruxiusQudifySelectDevice";
+        public const string StartCommand = "CruxiusQudifyStart";
+        public const string PauseCommand = "CruxiusQudifyPause";
+
+        private static readonly HashSet<string> commands = new HashSet<string>()
+        {
+            SearchCommand,
+            SetVolumeCommand,
+            SkipToNextCommand,
+            SkipToPreviousCommand,
+            SelectDeviceCommand,
+            StartCommand,
+            PauseCommand
+        };
+
 
         public override void Register(GameObject Object, IEventRegistrar Registrar)
         {
-            Object.RegisterPartEvent(this, SearchCommand);
+            foreach (var command in commands)
+            {
+                Object.RegisterPartEvent(this, command);
+            }
+
             base.Register(Object, Registrar);
         }
 
         public override bool FireEvent(Event E)
         {
-            if (E.ID == SearchCommand)
+            Console.WriteLine($"Received event {E.ID}");
+            if (!commands.Contains(E.ID))
             {
-                return QudifyActions.Search();
+                return base.FireEvent(E);
             }
 
-            return base.FireEvent(E);
+            if (!The.Player.Inventory.HasObject(Cruxius_BoomBox.BlueprintName))
+            {
+                Popup.Show("You do not have the required item to execute this command!");
+                return true;
+            }
+
+            switch (E.ID)
+            {
+                case SearchCommand:
+                    QudifyActions.Search();
+                    break;
+                case SetVolumeCommand:
+                    QudifyActions.SetVolume();
+                    break;
+                case SkipToNextCommand:
+                    QudifyActions.SkipToNext();
+                    break;
+                case SkipToPreviousCommand:
+                    QudifyActions.SkipToPrevious();
+                    break;
+                case SelectDeviceCommand:
+                    QudifyActions.SelectDevice();
+                    break;
+                case StartCommand:
+                    QudifyActions.ResumePlayback();
+                    break;
+                case PauseCommand:
+                    QudifyActions.PausePlayback();
+                    break;
+            }
+
+            return true;
         }
     }
 }

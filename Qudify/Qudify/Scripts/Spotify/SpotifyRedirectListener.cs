@@ -21,7 +21,7 @@ namespace Qudify.Scripts.Spotify
 
             new Thread(() =>
             {
-                Thread.Sleep(10_000);
+                Thread.Sleep(30_000);
                 Console.WriteLine("Stopping listener");
                 listener.Stop();
             }).Start();
@@ -31,7 +31,7 @@ namespace Qudify.Scripts.Spotify
                 var context = listener.GetContext();
                 var code = context.Request.QueryString["code"];
                 var response = context.Response;
-                string responseString = "<html><body>Logged into Spotify, you can now close the window and go back to Caves of Qud.<br />Live and drink friend!</body></html>";
+                var responseString = "<html><body style=\"background: black; color: white;\">Logged into Spotify, you can now close the window and go back to Caves of Qud.<br />Live and drink, friend!</body></html>";
                 var buffer = Encoding.UTF8.GetBytes(responseString);
                 response.ContentLength64 = buffer.Length;
                 var output = response.OutputStream;

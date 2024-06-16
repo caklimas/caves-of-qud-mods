@@ -72,7 +72,6 @@
     <Compile Include="Qudify\Scripts\Spotify\SelectedSpotifyDevice.cs" />
     <Compile Include="Qudify\Scripts\Spotify\SpotifyLoader.cs" />
     <Compile Include="Qudify\Scripts\Spotify\SpotifyRedirectListener.cs" />
-    <Compile Include="Qudify\Scripts\Wishes.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Assemblies\Assembly-CSharp.dll" />
