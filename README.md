@@ -1,2 +1,5 @@
 # caves-of-qud-mods
-Mods for Caves of Qud
+A set of Mods for Caves of Qud
+
+## Mods
+* [Qudify](/docs/Qudify.md)

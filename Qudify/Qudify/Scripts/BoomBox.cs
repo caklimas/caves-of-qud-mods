@@ -22,18 +22,18 @@ namespace XRL.World.Parts
                 return true;
             }
 
-            var playbackState = SpotifyClient.GetPlaybackState();
-            if (playbackState != null && playbackState.is_playing)
-            {
-                E.AddAction(Name: "Pause", Key: 'p', Display: "{{W|p}}ause", Command: SpotifyCommands.PAUSE, WorksTelekinetically: true);
-            }
-            else
-            {
-                E.AddAction(Name: "Start", Key: 's', Display: "{{W|s}}tart", Command: SpotifyCommands.START, WorksTelekinetically: true);
-            }
-
             if (SpotifyLoader.Profile.IsPremium)
             {
+                var playbackState = SpotifyClient.GetPlaybackState();
+                if (playbackState != null && playbackState.is_playing)
+                {
+                    E.AddAction(Name: "Pause", Key: 'p', Display: "{{W|p}}ause", Command: SpotifyCommands.PAUSE, WorksTelekinetically: true);
+                }
+                else
+                {
+                    E.AddAction(Name: "Start", Key: 's', Display: "{{W|s}}tart", Command: SpotifyCommands.START, WorksTelekinetically: true);
+                }
+
                 E.AddAction(
                     Name: "Skip to Next",
                     Key: 'N',
