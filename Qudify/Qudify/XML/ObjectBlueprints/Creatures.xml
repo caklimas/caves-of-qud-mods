@@ -1,6 +1,6 @@
 ﻿<objects>
   <object Name="Cruxius_Qudify_Cruxius" Inherits="NPC">
-    <part Name="Render" DisplayName="Cruxius" Tile="Cruxius_BoomBox/sw_dromad.png" ColorString="&amp;g" RenderString="h" />
+    <part Name="Render" DisplayName="Cruxius" Tile="Cruxius_Qudify/sw_dromad.png" ColorString="&amp;g" RenderString="h" />
     <!--<part Name="Titles" Ordinary="dromad merchant" />-->
     <part Name="Brain" Hostile="false" Wanders="false" Factions="Dromad-100,Joppa-99" />
     <part Name="ConversationScript" ConversationID="Qudify_Cruxius" />

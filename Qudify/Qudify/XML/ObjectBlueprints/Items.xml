@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <objects>
   <object Name="Cruxius_Qudify_Boom Box" Inherits="Item">
-    <part Name="Render" DisplayName="{{G|boom box}}" Tile="Cruxius_BoomBox/boom_box.png" ColorString="&amp;G" DetailColor="Y" />
+    <part Name="Render" DisplayName="{{G|boom box}}" Tile="Cruxius_Qudify/boom_box.png" ColorString="&amp;G" DetailColor="Y" />
     <part Name="Description" Short="Play any kind of music with the power of Spotify." />
     <part Name="Physics" Category="Tools" Weight="1" />
     <part Name="Commerce" Value="42" />

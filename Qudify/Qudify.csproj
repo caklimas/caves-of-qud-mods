@@ -63,21 +63,25 @@
     <Compile Include="Qudify\Scripts\Models\SpotifyUserProfile.cs" />
     <Compile Include="Qudify\Scripts\Models\TransferDevice.cs" />
     <Compile Include="Qudify\Scripts\MusicDiscoveryManager.cs" />
+    <Compile Include="Qudify\Scripts\QudifyActions.cs" />
+    <Compile Include="Qudify\Scripts\QudifyCommandListener.cs" />
+    <Compile Include="Qudify\Scripts\QudifyLoadGameHandler.cs" />
+    <Compile Include="Qudify\Scripts\QudifyPlayerMutator.cs" />
     <Compile Include="Qudify\Scripts\Spotify\SpotifyClient.cs" />
     <Compile Include="Qudify\Scripts\Models\SpotifyDevice.cs" />
     <Compile Include="Qudify\Scripts\Spotify\SelectedSpotifyDevice.cs" />
     <Compile Include="Qudify\Scripts\Spotify\SpotifyLoader.cs" />
     <Compile Include="Qudify\Scripts\Spotify\SpotifyRedirectListener.cs" />
-    <Compile Include="Qudify\Scripts\Wishes.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Assemblies\Assembly-CSharp.dll" />
+    <Content Include="Qudify\preview.png" />
+    <Content Include="Qudify\Textures\Cruxius_Qudify\boom_box.png" />
+    <Content Include="Qudify\Textures\Cruxius_Qudify\sw_dromad.png" />
+    <Content Include="Qudify\XML\Commands.xml" />
     <Content Include="Qudify\XML\Conversations.xml" />
     <Content Include="Qudify\XML\ObjectBlueprints\Items.xml" />
     <Content Include="Qudify\XML\ObjectBlueprints\Creatures.xml" />
-    <Content Include="Qudify\preview.png" />
-    <Content Include="Qudify\Textures\Cruxius_BoomBox\boom_box.png" />
-    <Content Include="Qudify\Textures\Cruxius_BoomBox\sw_dromad.png" />
     <Content Include="Qudify\XML\Quests.xml" />
   </ItemGroup>
   <ItemGroup>

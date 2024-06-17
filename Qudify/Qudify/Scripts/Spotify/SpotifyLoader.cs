@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Web;
 using XRL;
+using XRL.UI;
 
 namespace Qudify.Scripts.Spotify
 {
@@ -63,6 +64,17 @@ namespace Qudify.Scripts.Spotify
         }
 
         internal static bool IsLoggedIn() { return token != null; }
+
+        internal static bool CheckPremium()
+        {
+            if (!Profile.IsPremium)
+            {
+                Popup.Show("You need to have a Premium account to do this action.");
+                return false;
+            }
+
+            return true;
+        }
 
         private static SpotifyAccessToken Init()
         {

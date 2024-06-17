@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<commands>
+  <command ID="CruxiusQudifySearch" DisplayText="Search for Song" Category="Qudify" Layer="Adventure" Auto="DownPass">
+  </command>
+  <command ID="CruxiusQudifySetVolume" DisplayText="Set Volume" Category="Qudify" Layer="Adventure" Auto="DownPass">
+  </command>
+  <command ID="CruxiusQudifySkipToNext" DisplayText="Skip to Next Song" Category="Qudify" Layer="Adventure" Auto="DownPass">
+  </command>
+  <command ID="CruxiusQudifySkipToPrevious" DisplayText="Skip to Previous Song" Category="Qudify" Layer="Adventure" Auto="DownPass">
+  </command>
+  <command ID="CruxiusQudifySelectDevice" DisplayText="Select Playback Device" Category="Qudify" Layer="Adventure" Auto="DownPass">
+  </command>
+  <command ID="CruxiusQudifyStart" DisplayText="Start Song" Category="Qudify" Layer="Adventure" Auto="DownPass">
+  </command>
+  <command ID="CruxiusQudifyPause" DisplayText="Pause Song" Category="Qudify" Layer="Adventure" Auto="DownPass">
+  </command>
+</commands>

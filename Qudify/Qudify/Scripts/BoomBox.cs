@@ -1,4 +1,5 @@
-﻿using Qudify.Qudify.Scripts.Models;
+﻿using Qudify.Qudify.Scripts;
+using Qudify.Qudify.Scripts.Models;
 using Qudify.Scripts.Spotify;
 using System;
 using System.Linq;
@@ -9,6 +10,8 @@ namespace XRL.World.Parts
     [Serializable]
     public class Cruxius_BoomBox : IPart
     {
+        public const string BlueprintName = "Cruxius_Qudify_Boom Box";
+
         public override bool HandleEvent(GetInventoryActionsEvent E)
         {
             E.Actions.Clear();
@@ -70,61 +73,25 @@ namespace XRL.World.Parts
             switch (E.Command)
             {
                 case SpotifyCommands.PAUSE:
-                    SpotifyClient.PausePlayback();
+                    QudifyActions.PausePlayback();
                     return true;
                 case SpotifyCommands.START:
-                    SpotifyClient.ResumePlayback();
+                    QudifyActions.ResumePlayback();
                     return true;
                 case SpotifyCommands.SELECT_DEVICE:
-                    var availableDevices = SpotifyClient.GetAvailableDevices();
-                    if (availableDevices != null && availableDevices.devices.Length > 0)
-                    {
-                        var names = availableDevices.devices.Select(d => d.name).ToList();
-                        var index = Popup.ShowOptionList(
-                            Title: "Select Device",
-                            Options: names,
-                            AllowEscape: true);
-
-                        if (index != -1)
-                        {
-                            SelectedSpotifyDevice.SelectedDevice = availableDevices.devices[index];
-                            SpotifyClient.TransferPlayback(SelectedSpotifyDevice.SelectedDevice.id);
-                        }
-                    }
-                    else
-                    {
-                        Popup.Show("No devices available");
-                    }
-
+                    QudifyActions.SelectDevice();
                     return true;
                 case SpotifyCommands.SET_VOLUME:
-                    var volumePercent = Popup.AskNumber(Message: "Set volume level", Min: 0, Max: 100);
-                    SpotifyClient.SetVolume(volumePercent ?? 100);
+                    QudifyActions.SetVolume();
                     return true;
                 case SpotifyCommands.SKIP_TO_NEXT:
-                    SpotifyClient.SkipToNext();
+                    QudifyActions.SkipToNext();
                     return true;
                 case SpotifyCommands.SKIP_TO_PREVIOUS:
-                    SpotifyClient.SkipToPrevious();
+                    QudifyActions.SkipToPrevious();
                     return true;
                 case SpotifyCommands.SEARCH:
-                    var query = Popup.AskString("Search for tracks to play");
-                    var spotifyTracks = SpotifyClient.Search(query);
-
-                    var trackUris = spotifyTracks.tracks.items.Select(track => track.uri).ToList();
-                    var trackStrings = spotifyTracks.tracks.items.Select(track => track.ToString()).ToList();
-
-                    var trackIndex = Popup.ShowOptionList(
-                            Title: "Select Device",
-                            Options: trackStrings,
-                            AllowEscape: true);
-
-                    if (trackIndex != -1)
-                    {
-                        Messages.MessageQueue.AddPlayerMessage($"&GNow playing track {trackStrings[trackIndex]}");
-                        SpotifyClient.ResumePlayback(trackUris[trackIndex]);
-                    }
-
+                    QudifyActions.Search();
                     return true;
                 case SpotifyCommands.CONNECT:
                     SpotifyLoader.InitToken(true);
