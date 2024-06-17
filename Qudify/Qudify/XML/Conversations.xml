@@ -3,10 +3,10 @@
   <conversation ID="Qudify_Cruxius">
     <start ID="Welcome">
       <text>
-       Greetings and salutations =name=! Would you like to sit awhile and come appreciate the music I have to offer?
+       Greetings and salutations =name=! You'll have to excuse the loud music that I'm playing. I just can't help myself!
       </text>
       <choice Target="WhoIsCruxius">I am =name=. Who are you?</choice>
-      <choice Target="WhatDoesThisMean">I noticed the unusual sounds coming from here! What is generating this illustrious sound?</choice>
+      <choice Target="WhatDoesThisMean">I noticed sounds coming from this general direction. I've never heard such sounds before! Where is it coming from?</choice>
       <choice Target="DoSomething" IfHaveActiveQuest="Cruxius_Qudify_MusicDiscovery" CompleteQuestStep="Cruxius_Qudify_MusicDiscovery~DoSomething">I did what you asked</choice>
       <choice Target="End">At the moment, I'd like to listen to the music provided by this land. Live and drink.</choice>
     </start>
@@ -19,7 +19,7 @@
       <text>
         I have a strange device that will allow you browse and play many different songs from different realms.
         
-        While the sounds of Qud are magical, I come to share other types of music from many different places.
+        While the sounds of Qud are magical, this offers any kind of music that your heart desires!
       </text>
       <choice Target="QuestStart">Is there any way I can listen to music like this as I explore Qud?</choice>
     </node>
@@ -28,7 +28,7 @@
       <choice ID="AcceptQuest" Target="Accepted" StartQuest="Cruxius_Qudify_MusicDiscovery">I'll do it!</choice>
     </node>
     <node ID="DoSomething">
-      <text>Excellent! You may now have this device that lets you play music. Live and drink!</text>
+      <text>Excellent! You may now have this device that lets you play music. Live and drink, friend!</text>
       <part Name="QuestHandler" QuestID="Cruxius_Qudify_MusicDiscovery" Action="Complete" />
     </node>
   </conversation>
