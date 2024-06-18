@@ -49,6 +49,7 @@
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Qudify\Scripts\BoomBox.cs" />
+    <Compile Include="Qudify\Scripts\KilledEventListener.cs" />
     <Compile Include="Qudify\Scripts\Models\AccessTokenResponse.cs" />
     <Compile Include="Qudify\Scripts\Models\AvailableDevicesResponse.cs" />
     <Compile Include="Qudify\Scripts\Models\PkceCode.cs" />

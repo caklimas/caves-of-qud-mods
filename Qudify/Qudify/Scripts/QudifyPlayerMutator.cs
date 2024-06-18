@@ -12,6 +12,7 @@ namespace XRL.World.Parts
         public void mutate(GameObject player)
         {
             player.AddPart<Qudify_CommandListener>();
+            player.AddPart<KilledEventListener>();
         }
     }
 }

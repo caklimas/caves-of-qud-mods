@@ -7,7 +7,7 @@
       </text>
       <choice Target="WhoIsCruxius">I am =name=. Who are you?</choice>
       <choice Target="WhatDoesThisMean">I noticed sounds coming from this general direction. I've never heard such sounds before! Where is it coming from?</choice>
-      <choice Target="DoSomething" IfHaveActiveQuest="Cruxius_Qudify_MusicDiscovery" CompleteQuestStep="Cruxius_Qudify_MusicDiscovery~DoSomething">I did what you asked</choice>
+      <choice Target="KillThings" IfHaveActiveQuest="Cruxius_Qudify_MusicDiscovery" IfFinishedQuestSt="Cruxius_Qudify_MusicDiscovery~KillSomething">I did what you asked</choice>
       <choice Target="End">At the moment, I'd like to listen to the music provided by this land. Live and drink.</choice>
     </start>
     <node ID="WhoIsCruxius" Inherits="Welcome">
