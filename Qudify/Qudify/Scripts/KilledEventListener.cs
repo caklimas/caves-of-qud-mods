@@ -36,8 +36,8 @@ namespace XRL.World.Parts
                 MessageQueue.AddPlayerMessage($"You killed {E.Dying.DisplayName}. Total kill count {Cruxius_Qudify_MusicDiscoveryManager.KillCount}");
                 if (Cruxius_Qudify_MusicDiscoveryManager.KillCount == 1)
                 {
-                    var result = XRLCore.Core.Game.FinishedQuestStep("Cruxius_Qudify_MusicDiscovery~KillSomething");
-                    MessageQueue.AddPlayerMessage($"Completed quest step Cruxius_Qudify_MusicDiscovery~KillSomething {result}");
+                    var result = XRLCore.Core.Game.FinishQuestStep("Cruxius_Qudify_MusicDiscovery", "KillThings");
+                    MessageQueue.AddPlayerMessage($"Finished step {result}");
                 }
 
                 return true;
