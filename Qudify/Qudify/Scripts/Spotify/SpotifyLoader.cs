@@ -73,6 +73,13 @@ namespace Qudify.Scripts.Spotify
                 return false;
             }
 
+            var availableDevices = SpotifyClient.GetAvailableDevices();
+            if (!availableDevices.HasDevice(Environment.MachineName))
+            {
+                Popup.Show($"No Spotify player on machine {Environment.MachineName} exists. Start it up on this machine and try again.");
+                return false;
+            }
+
             return true;
         }
 
