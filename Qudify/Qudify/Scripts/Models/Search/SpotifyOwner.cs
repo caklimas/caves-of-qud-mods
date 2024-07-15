@@ -8,5 +8,6 @@ namespace Qudify.Qudify.Scripts.Models.Search
 {
     internal class SpotifyOwner
     {
+        public string display_name { get; set; }
     }
 }

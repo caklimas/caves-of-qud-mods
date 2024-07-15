@@ -30,12 +30,8 @@
       <choice Target="QuestStart">Is there any way I can listen to music like this as I explore Qud?</choice>
     </node>
     <node ID="QuestStart">
-      <text>Why yes! But first you have to do something for me.</text>
-      <choice ID="AcceptQuest" Target="Accepted" StartQuest="Cruxius_Qudify_MusicDiscovery">I'll do it!</choice>
-    </node>
-    <node ID="DoSomething">
-      <text>Excellent! You may now have this device that lets you play music. Live and drink, friend!</text>
-      <part Name="QuestHandler" QuestID="Cruxius_Qudify_MusicDiscovery" Action="Complete" />
+      <text>Why yes! Just check my wares and you can have it for free!</text>
+      <choice Target="Welcome">Perfect! I'll do just that</choice>
     </node>
   </conversation>
 </conversations>

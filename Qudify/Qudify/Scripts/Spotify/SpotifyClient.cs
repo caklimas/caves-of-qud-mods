@@ -50,10 +50,10 @@ namespace Qudify.Scripts.Spotify
 
         public static void ResumePlayback()
         {
-            ResumePlayback(null);
+            ResumePlayback(null, null);
         }
 
-        public static void ResumePlayback(string trackId)
+        public static void ResumePlayback(string trackId, string albumOrPlaylistId)
         {
             if (SpotifyLoader.GetToken() == null)
             {
@@ -69,13 +69,23 @@ namespace Qudify.Scripts.Spotify
 
                 var request = getRequest(builder.ToString(), "PUT");
 
-                if (trackId != null)
+                if (trackId != null || albumOrPlaylistId != null)
                 {
                     request.ContentType = "application/json";
 
+                    var data = new ResumePlaybackData();
+                    if (trackId != null)
+                    {
+                        data.uris = new string[] { trackId };
+                    }
+                    else if (albumOrPlaylistId != null)
+                    {
+                        data.context_uri = albumOrPlaylistId;
+                    }
+
                     using (var streamWriter = new StreamWriter(request.GetRequestStream()))
                     {
-                        var json = JsonMapper.ToJson(new ResumePlaybackData() { uris = new[] { trackId } });
+                        var json = JsonMapper.ToJson(data);
                         streamWriter.Write(json);
                     }
                 }

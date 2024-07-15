@@ -8,6 +8,7 @@ namespace Qudify.Qudify.Scripts.Models.ResumePlayback
 {
     internal class ResumePlaybackData
     {
-        public string[] uris {  get; set; }
+        public string context_uri { get; set; }
+        public string[] uris { get; set; }
     }
 }
