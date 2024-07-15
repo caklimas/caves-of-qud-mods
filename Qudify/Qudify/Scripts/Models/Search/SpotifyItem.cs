@@ -12,6 +12,7 @@ namespace Qudify.Qudify.Scripts.Models.Search
         public string uri { get; set; }
         public string name { get; set; }
         public SpotifyArtist[] artists { get; set; }
+        public SpotifyOwner owner { get; set; }
 
         public override string ToString()
         {

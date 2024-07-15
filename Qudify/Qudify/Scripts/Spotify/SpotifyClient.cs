@@ -406,12 +406,12 @@ namespace Qudify.Scripts.Spotify
             }
         }
 
-        public static SpotifyTracks Search(string query)
+        public static SpotifySearchResult Search(string query, SpotifySearchType searchType)
         {
             var baseUri = "https://api.spotify.com/v1/search";
             var queryString = HttpUtility.ParseQueryString(string.Empty);
             queryString["q"] = query;
-            queryString["type"] = "track";
+            queryString["type"] = searchType.SearchType;
 
             var builder = new UriBuilder(baseUri);
             builder.Query = queryString.ToString();
@@ -425,7 +425,7 @@ namespace Qudify.Scripts.Spotify
                     {
                         StreamReader reader = new StreamReader(responseStream, Encoding.UTF8);
                         var responseBody = reader.ReadToEnd();
-                        var tracks = JsonMapper.ToObject<SpotifyTracks>(responseBody);
+                        var tracks = JsonMapper.ToObject<SpotifySearchResult>(responseBody);
 
                         return tracks;
                     }
