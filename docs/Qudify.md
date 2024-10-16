@@ -31,3 +31,5 @@ This also provide shortcuts that you can assign to each action which will only w
 The NPC's name is Cruxius and he's located in Joppa. Just talk to him to get the boombox item.
 
 ![Cruxius point of interes](/docs/images/cruxius_poi.png)
+
+![Boom box](/docs/images/boom_box.png)
