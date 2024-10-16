@@ -20,6 +20,12 @@ The following actions are provided:
 - [Select Device](https://developer.spotify.com/documentation/web-api/reference/transfer-a-users-playback) - Allows switching Spotify devices so the audio can be played on another device. This will only return other devices that the Spotify player is currently running on.
 - [Search](https://developer.spotify.com/documentation/web-api/reference/search) - Allows the searching of specific tracks. Right now this only supports tracks and will return the top 20. Upon selecting one it will play that song
 
+### Custom Bindings
+
+This also provide shortcuts that you can assign to each action which will only work once you have the boombox.
+
+![Custom bindings](/docs/images/custom_bindings.png)
+
 ### Where to find the NPC
 
 The NPC's name is Cruxius and he's located in Joppa. Just talk to him to get the boombox item.
