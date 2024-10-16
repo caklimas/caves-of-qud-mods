@@ -4,7 +4,7 @@
     <part Name="Render" DisplayName="{{G|boom box}}" Tile="Cruxius_Qudify/boom_box.png" ColorString="&amp;G" DetailColor="Y" />
     <part Name="Description" Short="Play any kind of music with the power of Spotify." />
     <part Name="Physics" Category="Tools" Weight="1" />
-    <part Name="Commerce" Value="42" />
+    <part Name="Commerce" Value="0" />
     <part Name="Cruxius_BoomBox" />
   </object>
 </objects>

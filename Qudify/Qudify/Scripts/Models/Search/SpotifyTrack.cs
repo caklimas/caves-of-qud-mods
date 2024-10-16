@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Qudify.Qudify.Scripts.Models.Search
 {
-    internal class SpotifyItems
+    internal class SpotifyTrack
     {
         public SpotifyItem[] items { get; set; }
     }
