@@ -12,10 +12,22 @@ namespace Qudify.Qudify.Scripts.Models.Search
         public string uri { get; set; }
         public string name { get; set; }
         public SpotifyArtist[] artists { get; set; }
+        public SpotifyOwner owner { get; set; }
 
         public override string ToString()
         {
-            return $"{name} - {artists[0].name}";
+            var builder = new StringBuilder(name);
+            if (artists != null && artists.Length > 0)
+            {
+                var artistNames = string.Join(", ", artists.Select(a => a.name));
+                builder.Append($" - {artistNames}");
+            }
+            else if (owner != null)
+            {
+                builder.Append($" - {owner.display_name}");
+            }
+
+            return builder.ToString();
         }
     }
 }

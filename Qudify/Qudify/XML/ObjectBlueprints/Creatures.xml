@@ -12,6 +12,7 @@
     <xtagGrammar Proper="true" />
     <part Name="AISitting" />
     <tag Name="ExcludeFromDynamicEncounters" Value="*noinherit" />
+    <inventoryobject Blueprint="Cruxius_Qudify_Boom Box" Number="1" />
 
     <part Name="Description" Short="You can hear weird sounds coming from his general direction." />
   </object>

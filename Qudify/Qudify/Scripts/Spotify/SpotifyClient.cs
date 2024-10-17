@@ -50,10 +50,10 @@ namespace Qudify.Scripts.Spotify
 
         public static void ResumePlayback()
         {
-            ResumePlayback(null);
+            ResumePlayback(null, null);
         }
 
-        public static void ResumePlayback(string trackId)
+        public static void ResumePlayback(string trackId, string albumOrPlaylistId)
         {
             if (SpotifyLoader.GetToken() == null)
             {
@@ -69,13 +69,23 @@ namespace Qudify.Scripts.Spotify
 
                 var request = getRequest(builder.ToString(), "PUT");
 
-                if (trackId != null)
+                if (trackId != null || albumOrPlaylistId != null)
                 {
                     request.ContentType = "application/json";
 
+                    var data = new ResumePlaybackData();
+                    if (trackId != null)
+                    {
+                        data.uris = new string[] { trackId };
+                    }
+                    else if (albumOrPlaylistId != null)
+                    {
+                        data.context_uri = albumOrPlaylistId;
+                    }
+
                     using (var streamWriter = new StreamWriter(request.GetRequestStream()))
                     {
-                        var json = JsonMapper.ToJson(new ResumePlaybackData() { uris = new[] { trackId } });
+                        var json = JsonMapper.ToJson(data);
                         streamWriter.Write(json);
                     }
                 }
@@ -145,7 +155,12 @@ namespace Qudify.Scripts.Spotify
 
         public static AvailableDevicesResponse GetAvailableDevices()
         {
-            if (SpotifyLoader.GetToken() == null || !SpotifyLoader.CheckPremium())
+            return GetAvailableDevices(true);
+        }
+
+        public static AvailableDevicesResponse GetAvailableDevices(bool checkPremium)
+        {
+            if (SpotifyLoader.GetToken() == null || (checkPremium && !SpotifyLoader.CheckPremium()))
             {
                 return new AvailableDevicesResponse();
             }
@@ -406,12 +421,12 @@ namespace Qudify.Scripts.Spotify
             }
         }
 
-        public static SpotifyTracks Search(string query)
+        public static SpotifySearchResult Search(string query, SpotifySearchType searchType)
         {
             var baseUri = "https://api.spotify.com/v1/search";
             var queryString = HttpUtility.ParseQueryString(string.Empty);
             queryString["q"] = query;
-            queryString["type"] = "track";
+            queryString["type"] = searchType.SearchType;
 
             var builder = new UriBuilder(baseUri);
             builder.Query = queryString.ToString();
@@ -425,7 +440,7 @@ namespace Qudify.Scripts.Spotify
                     {
                         StreamReader reader = new StreamReader(responseStream, Encoding.UTF8);
                         var responseBody = reader.ReadToEnd();
-                        var tracks = JsonMapper.ToObject<SpotifyTracks>(responseBody);
+                        var tracks = JsonMapper.ToObject<SpotifySearchResult>(responseBody);
 
                         return tracks;
                     }

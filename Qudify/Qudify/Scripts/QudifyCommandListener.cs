@@ -6,7 +6,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using XRL.Core;
+using XRL.Messages;
 using XRL.UI;
+using XRL.World.QuestManagers;
 
 namespace XRL.World.Parts
 {

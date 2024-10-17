@@ -49,17 +49,20 @@
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Qudify\Scripts\BoomBox.cs" />
+    <Compile Include="Qudify\Scripts\KilledEventListener.cs" />
     <Compile Include="Qudify\Scripts\Models\AccessTokenResponse.cs" />
     <Compile Include="Qudify\Scripts\Models\AvailableDevicesResponse.cs" />
     <Compile Include="Qudify\Scripts\Models\PkceCode.cs" />
     <Compile Include="Qudify\Scripts\Models\PlaybackStateResponse.cs" />
     <Compile Include="Qudify\Scripts\Models\ResumePlayback\ResumePlaybackData.cs" />
     <Compile Include="Qudify\Scripts\Models\Search\SpotifyArtist.cs" />
+    <Compile Include="Qudify\Scripts\Models\Search\SpotifyOwner.cs" />
+    <Compile Include="Qudify\Scripts\Models\Search\SpotifySearchType.cs" />
     <Compile Include="Qudify\Scripts\Models\SpotifyAccessToken.cs" />
     <Compile Include="Qudify\Scripts\Models\SpotifyCommands.cs" />
     <Compile Include="Qudify\Scripts\Models\Search\SpotifyItem.cs" />
-    <Compile Include="Qudify\Scripts\Models\Search\SpotifyTrack.cs" />
-    <Compile Include="Qudify\Scripts\Models\Search\SpotifyTracks.cs" />
+    <Compile Include="Qudify\Scripts\Models\Search\SpotifyItems.cs" />
+    <Compile Include="Qudify\Scripts\Models\Search\SpotifySearchResult.cs" />
     <Compile Include="Qudify\Scripts\Models\SpotifyUserProfile.cs" />
     <Compile Include="Qudify\Scripts\Models\TransferDevice.cs" />
     <Compile Include="Qudify\Scripts\MusicDiscoveryManager.cs" />
