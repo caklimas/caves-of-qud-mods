@@ -24,6 +24,18 @@ namespace XRL.World.Parts
 
             if (SpotifyLoader.Profile.IsPremium)
             {
+                if (!SelectedSpotifyDevice.HasSelectedDevice())
+                {
+                    E.AddAction(
+                        Name: "Select Device",
+                        Key: 'D',
+                        Display: "Select {{W|D}}evice",
+                        Command: SpotifyCommands.SELECT_DEVICE
+                    );
+
+                    return true;
+                }
+
                 var playbackState = SpotifyClient.GetPlaybackState();
                 if (playbackState != null && playbackState.is_playing)
                 {

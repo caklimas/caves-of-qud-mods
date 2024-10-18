@@ -65,18 +65,33 @@ namespace Qudify.Scripts.Spotify
 
         internal static bool IsLoggedIn() { return token != null; }
 
-        internal static bool CheckPremium()
+        internal static bool ValidateRequest()
         {
-            if (!Profile.IsPremium)
+            return ValidateRequest(validateSelectDevices: true);
+        }
+
+        internal static bool ValidateRequest(bool validateSelectDevices)
+        {
+            if (!CheckPremium())
             {
                 Popup.Show("You need to have a Premium account to do this action.");
                 return false;
             }
 
-            var availableDevices = SpotifyClient.GetAvailableDevices(false);
-            if (!availableDevices.HasDevice(Environment.MachineName))
+            if (validateSelectDevices && !SelectedSpotifyDevice.HasSelectedDevice()) {
+                Popup.Show("You need to select a device to do this action.");
+                return false;
+            }
+
+
+            return true;
+        }
+
+        private static bool CheckPremium()
+        {
+            if (!Profile.IsPremium)
             {
-                Popup.Show($"No Spotify player on machine {Environment.MachineName} exists. Start it up on this machine and try again.");
+                Popup.Show("You need to have a Premium account to do this action.");
                 return false;
             }
 
