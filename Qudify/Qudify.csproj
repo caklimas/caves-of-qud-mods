@@ -91,6 +91,7 @@
     <None Include=".editorconfig" />
     <None Include="Qudify\manifest.json" />
     <None Include="Qudify\Joppa.rpm" />
+    <None Include="Qudify\workshop.json" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
