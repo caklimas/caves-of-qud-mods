@@ -1,7 +1,7 @@
 {
   "WorkshopId": 3349904580,
   "Title": "Qudify",
-  "Description": "Creates an item to control your Spotify player within the game.",
+  "Description": "Creates an item to control your Spotify player within the game.\n\nDocumentation:\nhttps://github.com/caklimas/caves-of-qud-mods/blob/main/docs/Qudify.md",
   "Tags": "",
   "Visibility": "0",
   "ImagePath": "preview.png"
