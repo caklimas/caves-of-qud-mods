@@ -21,7 +21,7 @@ namespace Qudify.Qudify.Scripts
 
         public static void Search()
         {
-            if (!SpotifyLoader.CheckPremium())
+            if (!SpotifyLoader.ValidateRequest())
             {
                 return;
             }
@@ -82,7 +82,7 @@ namespace Qudify.Qudify.Scripts
 
         public static void SetVolume()
         {
-            if (!SpotifyLoader.CheckPremium())
+            if (!SpotifyLoader.ValidateRequest())
             {
                 return;
             }
@@ -103,10 +103,20 @@ namespace Qudify.Qudify.Scripts
 
         public static void SelectDevice()
         {
-            var availableDevices = SpotifyClient.GetAvailableDevices();
+            if (!SpotifyLoader.ValidateRequest(validateSelectDevices: false))
+            {
+                return;
+            }
+
+            var availableDevices = SpotifyClient.GetAvailableDevices(checkPremium: false);
             if (availableDevices != null && availableDevices.devices.Length > 0)
             {
-                var names = availableDevices.devices.Select(d => d.name).ToList();
+                var names = availableDevices
+                    .devices
+                    .Select(d => 
+                    {
+                        return d.name == Environment.MachineName ? $"{d.name} - current machine" : d.name;
+                    }).ToList();
                 var index = Popup.ShowOptionList(
                     Title: "Select Device",
                     Options: names,
