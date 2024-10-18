@@ -3,6 +3,6 @@
   "Title": "Qudify",
   "Description": "Creates an item to control your Spotify player within the game.\n\nDocumentation:\nhttps://github.com/caklimas/caves-of-qud-mods/blob/main/docs/Qudify.md",
   "Tags": "",
-  "Visibility": "0",
+  "Visibility": "2",
   "ImagePath": "preview.png"
 }
