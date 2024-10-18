@@ -1,7 +1,7 @@
 {
   "id": "Cruxius_Qudify",
   "title": "{{C|Qudify}}",
-  "description": "Creates an item to control your Spotify player within the game. Test change",
+  "description": "Creates an item to control your Spotify player within the game.",
   "version": "0.1.1",
   "author": "Cruxius",
   "previewImage": "preview.png"
