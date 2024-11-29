@@ -144,5 +144,22 @@ namespace Qudify.Qudify.Scripts
         {
             SpotifyClient.PausePlayback();
         }
+
+        public static void ValidateConnection()
+        {
+            if (SpotifyLoader.GetToken() == null)
+            {
+                Popup.Show("You are not connected to Spotify");
+                return;
+            }
+
+            var profile = SpotifyClient.GetUserProfile();
+            if (!profile.IsPremium)
+            {
+                Popup.Show($"Current user '{profile.display_name}' is not Premium. Current status is '{profile.product}'");
+                return;
+            }
+            
+        }
     }
 }
