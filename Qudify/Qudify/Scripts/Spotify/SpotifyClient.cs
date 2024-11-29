@@ -64,6 +64,10 @@ namespace Qudify.Scripts.Spotify
             {
                 Console.WriteLine("Resuming spotify player");
                 var baseUri = $"{BASE_URL}me/player/play";
+                if (SelectedSpotifyDevice.HasSelectedDevice())
+                {
+                    baseUri = $"{baseUri}?device_id={SelectedSpotifyDevice.SelectedDevice.id}";
+                }
 
                 var builder = new UriBuilder(baseUri);
 
@@ -160,7 +164,7 @@ namespace Qudify.Scripts.Spotify
 
         public static AvailableDevicesResponse GetAvailableDevices(bool checkPremium)
         {
-            if (SpotifyLoader.GetToken() == null || (checkPremium && !SpotifyLoader.ValidateRequest()))
+            if (SpotifyLoader.GetToken() == null || (checkPremium && !SpotifyLoader.ValidateRequest(validateSelectDevices: false)))
             {
                 return new AvailableDevicesResponse();
             }

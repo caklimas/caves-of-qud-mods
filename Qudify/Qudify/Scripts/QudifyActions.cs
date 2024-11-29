@@ -1,4 +1,5 @@
 ﻿using LitJson;
+using Qud.UI;
 using Qudify.Qudify.Scripts.Models.Search;
 using Qudify.Scripts.Spotify;
 using System;
@@ -41,8 +42,6 @@ namespace Qudify.Qudify.Scripts
             var query = Popup.AskString($"Search for {selectedType.SearchType} to play");
             var searchResults = SpotifyClient.Search(query, selectedType);
 
-            Console.WriteLine($"Search result: {JsonMapper.ToJson(searchResults)}");
-
             var items = new SpotifyItem[0];
             var isTrack = false;
             var isAlbumOrPlaylist = false;
@@ -62,7 +61,9 @@ namespace Qudify.Qudify.Scripts
                 isTrack = true;
             }
 
-            var itemUris = items.Select(item => item.uri).ToList();
+            items = items.Where(i => i != null).ToArray();
+
+            var itemUris = items.Where(i => i != null).Select(item => item.uri).ToList();
             var itemStrings = items.Select(item => item.ToString()).ToList();
 
             var trackIndex = Popup.ShowOptionList(
@@ -142,6 +143,31 @@ namespace Qudify.Qudify.Scripts
         public static void PausePlayback()
         {
             SpotifyClient.PausePlayback();
+        }
+
+        public static void ConnectionStatus()
+        {
+            if (SpotifyLoader.GetToken() == null)
+            {
+                Popup.Show("You are not connected to Spotify");
+                return;
+            }
+
+            var profile = SpotifyClient.GetUserProfile();
+            if (!profile.IsPremium)
+            {
+                Popup.Show($"Current user '{profile.display_name}' is not Premium. Current status is '{profile.product}'");
+                return;
+            }
+
+            var availableDevices = SpotifyClient.GetAvailableDevices();
+            if (availableDevices == null || !availableDevices.devices.Any())
+            {
+                Popup.Show($"There are no available devices to connect to.");
+                return;
+            }
+
+            Popup.Show("Connection is valid!");
         }
     }
 }

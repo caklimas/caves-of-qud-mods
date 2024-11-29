@@ -108,6 +108,9 @@ namespace XRL.World.Parts
                 case SpotifyCommands.CONNECT:
                     SpotifyLoader.InitToken(true);
                     return true;
+                case SpotifyCommands.CONNECTION_STATUS:
+                    QudifyActions.ConnectionStatus();
+                    return true;
                 default:
                     return base.HandleEvent(E);
             }
