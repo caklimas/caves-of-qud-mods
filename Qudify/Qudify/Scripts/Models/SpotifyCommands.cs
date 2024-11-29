@@ -16,6 +16,6 @@ namespace Qudify.Qudify.Scripts.Models
         internal const string SKIP_TO_PREVIOUS = "Skip to Previous";
         internal const string SEARCH = "Search";
         internal const string CONNECT = "Connect";
-        internal const string VALIDATE_CONNECTION = "Validate Connection";
+        internal const string CONNECTION_STATUS = "Connection Status";
     }
 }

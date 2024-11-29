@@ -23,6 +23,7 @@ namespace XRL.World.Parts
         public const string SelectDeviceCommand = "CruxiusQudifySelectDevice";
         public const string StartCommand = "CruxiusQudifyStart";
         public const string PauseCommand = "CruxiusQudifyPause";
+        public const string ConnectionStatusCommand = "CruxiusQudifyConnectionStatus";
 
         private static readonly HashSet<string> commands = new HashSet<string>()
         {
@@ -32,7 +33,8 @@ namespace XRL.World.Parts
             SkipToPreviousCommand,
             SelectDeviceCommand,
             StartCommand,
-            PauseCommand
+            PauseCommand,
+            ConnectionStatusCommand
         };
 
 
@@ -82,6 +84,9 @@ namespace XRL.World.Parts
                     break;
                 case PauseCommand:
                     QudifyActions.PausePlayback();
+                    break;
+                case ConnectionStatusCommand:
+                    QudifyActions.ConnectionStatus();
                     break;
             }
 

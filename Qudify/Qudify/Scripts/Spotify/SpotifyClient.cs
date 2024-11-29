@@ -164,7 +164,7 @@ namespace Qudify.Scripts.Spotify
 
         public static AvailableDevicesResponse GetAvailableDevices(bool checkPremium)
         {
-            if (SpotifyLoader.GetToken() == null || (checkPremium && !SpotifyLoader.ValidateRequest()))
+            if (SpotifyLoader.GetToken() == null || (checkPremium && !SpotifyLoader.ValidateRequest(validateSelectDevices: false)))
             {
                 return new AvailableDevicesResponse();
             }

@@ -77,16 +77,6 @@ namespace XRL.World.Parts
                     Command: SpotifyCommands.SEARCH);
             }
 
-            if (!E.Actions.Any())
-            {
-                E.AddAction(
-                    Name: "Validate Connection",
-                    Key: 'V',
-                    Display: "{{W|V}}alidate Connection",
-                    Command: SpotifyCommands.VALIDATE_CONNECTION
-                );
-            }
-
             return true;
         }
 
@@ -118,7 +108,8 @@ namespace XRL.World.Parts
                 case SpotifyCommands.CONNECT:
                     SpotifyLoader.InitToken(true);
                     return true;
-                case SpotifyCommands.VALIDATE_CONNECTION:
+                case SpotifyCommands.CONNECTION_STATUS:
+                    QudifyActions.ConnectionStatus();
                     return true;
                 default:
                     return base.HandleEvent(E);

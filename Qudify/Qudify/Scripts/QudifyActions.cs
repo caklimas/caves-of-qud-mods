@@ -145,7 +145,7 @@ namespace Qudify.Qudify.Scripts
             SpotifyClient.PausePlayback();
         }
 
-        public static void ValidateConnection()
+        public static void ConnectionStatus()
         {
             if (SpotifyLoader.GetToken() == null)
             {
@@ -159,7 +159,15 @@ namespace Qudify.Qudify.Scripts
                 Popup.Show($"Current user '{profile.display_name}' is not Premium. Current status is '{profile.product}'");
                 return;
             }
-            
+
+            var availableDevices = SpotifyClient.GetAvailableDevices();
+            if (availableDevices == null || !availableDevices.devices.Any())
+            {
+                Popup.Show($"There are no available devices to connect to.");
+                return;
+            }
+
+            Popup.Show("Connection is valid!");
         }
     }
 }
