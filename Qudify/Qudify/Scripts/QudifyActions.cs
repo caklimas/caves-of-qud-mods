@@ -41,8 +41,6 @@ namespace Qudify.Qudify.Scripts
             var query = Popup.AskString($"Search for {selectedType.SearchType} to play");
             var searchResults = SpotifyClient.Search(query, selectedType);
 
-            Console.WriteLine($"Search result: {JsonMapper.ToJson(searchResults)}");
-
             var items = new SpotifyItem[0];
             var isTrack = false;
             var isAlbumOrPlaylist = false;

@@ -9,5 +9,12 @@ namespace Qudify.Scripts.Models
     internal class TransferDevice
     {
         public string[] device_ids { get; set; }
+
+        public bool play { get; set; }
+
+        public TransferDevice()
+        {
+            play = true;
+        }
     }
 }
