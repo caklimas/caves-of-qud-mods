@@ -66,10 +66,9 @@ namespace Qudify.Scripts.Spotify
                 var baseUri = $"{BASE_URL}me/player/play";
                 if (SelectedSpotifyDevice.HasSelectedDevice())
                 {
-                    baseUri = $"{baseUri}?device_id5={SelectedSpotifyDevice.SelectedDevice.id}";
+                    baseUri = $"{baseUri}?device_id={SelectedSpotifyDevice.SelectedDevice.id}";
                 }
 
-                XRL.Messages.MessageQueue.AddPlayerMessage($"&GQuerying url {baseUri}");
                 var builder = new UriBuilder(baseUri);
 
                 var request = getRequest(builder.ToString(), "PUT");

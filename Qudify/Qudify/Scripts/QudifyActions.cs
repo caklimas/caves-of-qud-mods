@@ -1,4 +1,5 @@
 ﻿using LitJson;
+using Qud.UI;
 using Qudify.Qudify.Scripts.Models.Search;
 using Qudify.Scripts.Spotify;
 using System;
@@ -60,7 +61,9 @@ namespace Qudify.Qudify.Scripts
                 isTrack = true;
             }
 
-            var itemUris = items.Select(item => item.uri).ToList();
+            items = items.Where(i => i != null).ToArray();
+
+            var itemUris = items.Where(i => i != null).Select(item => item.uri).ToList();
             var itemStrings = items.Select(item => item.ToString()).ToList();
 
             var trackIndex = Popup.ShowOptionList(
