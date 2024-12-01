@@ -9,6 +9,7 @@ using XRL.World.Conversations;
 using Qudify.Qudify.Scripts.Models.Search;
 using Qudify.Qudify.Scripts.Models.ResumePlayback;
 using XRL.UI;
+using AiUnity.Common.Extensions;
 
 namespace Qudify.Scripts.Spotify
 {
@@ -186,17 +187,15 @@ namespace Qudify.Scripts.Spotify
                             Console.WriteLine($"Playback state: {responseBody}");
 
                             var responsePlayback = JsonMapper.ToObject<AvailableDevicesResponse>(responseBody);
+                            XRL.Messages.MessageQueue.AddPlayerMessage($"&GFound {responsePlayback.devices.Length} devices");
+
                             return responsePlayback;
                         }
                     }
-                    else if (response.StatusCode == HttpStatusCode.NoContent)
-                    {
-                        return null;
-                    }
                     else
                     {
-                        Console.WriteLine($"Error: {response.StatusCode}");
-                        return null;
+                        OutputError($"Could not retrieve any available devices: {response.StatusCode} - {response.StatusDescription}");
+                        return new AvailableDevicesResponse();
                     }
                 }
             }
@@ -467,6 +466,12 @@ namespace Qudify.Scripts.Spotify
             request.Headers["Authorization"] = "Bearer " + SpotifyLoader.GetToken().AccessToken.access_token;
 
             return request;
+        }
+
+        private static void OutputError(string message)
+        {
+            Console.WriteLine(message);
+            Popup.Show(message);
         }
     }
 }
