@@ -15,7 +15,7 @@ namespace Qudify.Scripts.Spotify
     [HasModSensitiveStaticCache]
     public static class SpotifyLoader
     {
-        internal const string REDIRECT_URI = "http://localhost:3000/callback";
+        internal const string REDIRECT_URI = "http://127.0.0.1:3000/callback";
         internal const string CLIENT_ID = "66fddae670eb48ab8661982cd1ee6b89";
 
         private static SpotifyAccessToken token;
